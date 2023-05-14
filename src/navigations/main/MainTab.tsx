@@ -1,7 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { Text } from 'react-native';
-import HomeStack from 'src/navigations/HomeStack';
+import HomeStack from 'src/navigations/stack/HomeStack';
+import MyPageStack from 'src/navigations/stack/MyPageStack';
 import Search from 'src/screens/Search/Search';
 
 const Tab = createBottomTabNavigator<MainTabParamsType>();
@@ -33,7 +34,7 @@ const MainTab = () => {
       />
       <Tab.Screen
         name="MyPageStack"
-        component={Search}
+        component={MyPageStack}
         options={{
           tabBarIcon: ({ color }) => <Text style={{ color }}>MyPage</Text>,
           headerShown: false,
