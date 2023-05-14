@@ -19,7 +19,7 @@ const MainTab = () => {
         name="HomeStack"
         component={HomeStack}
         options={{
-          tabBarIcon: ({ color }) => <Text style={{ color }}>home</Text>,
+          tabBarIcon: ({ color }) => <Text style={{ color }}>Home</Text>,
           headerShown: false,
         }}
       />
