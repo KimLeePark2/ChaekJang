@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
-const Main = () => {
+const Chat = () => {
   return (
     <View>
-      <Text>Main hi</Text>
+      <Text>Chat hi</Text>
     </View>
   );
 };
@@ -13,4 +13,4 @@ const styles = StyleSheet.create({
   block: {},
 });
 
-export default Main;
+export default Chat;

@@ -1,17 +1,18 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import Main from 'src/screens/main';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import MainHeader from 'src/components/Header/CustomStatusBar';
+import RootStack from 'src/navigations/RootStack';
 
 const App = () => {
   return (
-    <View>
-      <Main />
-    </View>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <MainHeader />
+        <RootStack />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  block: {},
-});
 
 export default App;
