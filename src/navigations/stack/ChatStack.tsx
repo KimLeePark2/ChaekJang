@@ -6,7 +6,7 @@ import ChatDetail from 'src/screens/Chat/ChatDetail';
 
 const Stack = createNativeStackNavigator<ChatStackParamsType>();
 
-const SearchStack = () => {
+const ChatStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -23,4 +23,4 @@ const SearchStack = () => {
   );
 };
 
-export default SearchStack;
+export default ChatStack;
