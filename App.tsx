@@ -1,17 +1,25 @@
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import Main from 'src/screens/main';
+
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import MainHeader from 'src/components/Header/CustomStatusBar';
+import RootStack from 'src/navigations/root/RootStack';
+import { colors } from 'src/styles/colors';
+
+const CustomTheme = {
+  ...DefaultTheme,
+  colors: { ...DefaultTheme.colors, background: colors.white },
+};
 
 const App = () => {
   return (
-    <View>
-      <Main />
-    </View>
+    <SafeAreaProvider>
+      <NavigationContainer theme={CustomTheme}>
+        <MainHeader />
+        <RootStack />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  block: {},
-});
 
 export default App;
