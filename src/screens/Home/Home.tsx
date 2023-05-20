@@ -1,8 +1,9 @@
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import BookList from 'src/components/Book/BookList';
 
 type PropsType = CompositeScreenProps<
   NativeStackScreenProps<HomeStackParamsType, 'Home'>,
@@ -33,13 +34,15 @@ const Home: React.FC<PropsType> = ({ navigation }) => {
           <Text style={{ color: 'blue' }}>click me (sign-in page)</Text>
         </Pressable>
       </View>
-      <Text>Main hi</Text>
+      <View>
+        <BookList />
+      </View>
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
-  block: {},
-});
+// const styles = StyleSheet.create({
+//   block: {},
+// });
 
 export default Home;
