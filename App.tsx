@@ -5,6 +5,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import MainHeader from 'src/components/Header/CustomStatusBar';
 import RootStack from 'src/navigations/root/RootStack';
 import { colors } from 'src/styles/colors';
+import { ThemeProvider } from '@emotion/react';
+import { theme } from 'src/styles/theme';
 
 const CustomTheme = {
   ...DefaultTheme,
@@ -13,12 +15,14 @@ const CustomTheme = {
 
 const App = () => {
   return (
-    <SafeAreaProvider>
-      <NavigationContainer theme={CustomTheme}>
-        <MainHeader />
-        <RootStack />
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <ThemeProvider theme={theme}>
+      <SafeAreaProvider>
+        <NavigationContainer theme={CustomTheme}>
+          <MainHeader />
+          <RootStack />
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </ThemeProvider>
   );
 };
 
