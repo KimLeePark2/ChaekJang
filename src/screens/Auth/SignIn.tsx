@@ -8,21 +8,7 @@ const SignIn: React.FC<PropsType> = ({ navigation }) => {
   const onPressBack = () => {
     navigation.goBack();
   };
-  return (
-    <View>
-      <View
-        style={{
-          height: 30,
-          paddingHorizontal: 10,
-        }}
-      >
-        <Pressable onPress={onPressBack}>
-          <Text style={{ color: 'blue', fontSize: 24 }}>{'<'}</Text>
-        </Pressable>
-      </View>
-      <Text>SignIn hi</Text>
-    </View>
-  );
+  return <View></View>;
 };
 
 const styles = StyleSheet.create({
