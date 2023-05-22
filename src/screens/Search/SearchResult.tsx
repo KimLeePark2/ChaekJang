@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 
 const SearchResult = () => {
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Text>SearchResult hi</Text>
     </View>
   );
