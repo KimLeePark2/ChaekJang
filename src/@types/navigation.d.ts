@@ -18,7 +18,7 @@ type HomeStackParamsType = {
 
 type SearchStackParamsType = {
   Search: undefined;
-  SearchResult: undefined;
+  SearchResult: { inputValue: string };
 };
 
 type ChatStackParamsType = {
