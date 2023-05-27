@@ -9,3 +9,7 @@ interface IBookItem {
   isSoldOut: boolean;
   createdAt: string;
 }
+
+type onPressBookDetailType = {
+  onPressBookDetail: (id: number) => void;
+};
