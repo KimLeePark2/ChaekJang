@@ -3,9 +3,9 @@ import React from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-type PropsType = NativeStackScreenProps<RootStackParamsType, 'SignIn'>;
+type PropsType = NativeStackScreenProps<RootStackParamsType, 'BookDetail'>;
 
-const BookDetail: React.FC<PropsType> = ({ navigation }) => {
+const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
   const onPressBack = () => {
     navigation.goBack();
   };
@@ -22,6 +22,7 @@ const BookDetail: React.FC<PropsType> = ({ navigation }) => {
         </Pressable>
       </View>
       <Text>BookDetail hi</Text>
+      <Text>ID is {route.params?.id}</Text>
     </SafeAreaView>
   );
 };
