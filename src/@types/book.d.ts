@@ -9,3 +9,13 @@ interface IBookItem {
   isSoldOut: boolean;
   createdAt: string;
 }
+
+interface IUserInfo {
+  id: number;
+  profileImage: ImageSourcePropType;
+  nickname: string;
+}
+
+type onPressBookDetailType = {
+  onPressBookDetail: (id: number) => void;
+};
