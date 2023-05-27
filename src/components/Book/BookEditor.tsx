@@ -57,7 +57,7 @@ const BookEditor: React.FC<PropsType> = ({
       <View style={styles.priceContainer}>
         <Text style={price === 0 && styles.priceUnit}>₩</Text>
         <TextInput
-          style={(styles.price, price === 0 && styles.priceUnit)}
+          style={[styles.price, price === 0 && styles.priceUnit]}
           ref={priceRef}
           placeholder="가격"
           inputMode="numeric"
