@@ -10,22 +10,20 @@ import {
   Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import type { IBookItem, IUserInfo } from 'src/@types/book';
+import { DUMMY } from 'src/components/Book/DUMMY';
 
 type PropsType = NativeStackScreenProps<RootStackParamsType, 'BookDetail'>;
 
 const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
-
-  const data = {
-    id: 1,
-    thumbnailImage: require('./../../components/Book/example1.jpeg'),
-    title: '나의 첫 국어사전',
-    body: '이거 팔아요~~~!!!',
-    price: 2000,
-    wishCount: 3,
-    isSoldOut: false,
-    createdAt: '2022-05-25T03:24:00',
-  };
-  const userInfo = {
+  const data: IBookItem[] = DUMMY;
+  const index: number = route.params?.id;
+  // DUMMY.map((value: IBookItem, idx: number) => {
+  //   if (value.id === route.params?.id) {
+  //     index = idx;
+  //   }
+  // });
+  const userInfo: IUserInfo = {
     id: 1,
     profileImage: require('./../../components/Book/example2.jpg'),
     nickname: '홍길동',
@@ -46,10 +44,7 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
         </Pressable>
       </View>
       <View style={styles.container}>
-        {/* <Text>BookDetail hi</Text> */}
-        {/* <Text>ID is {route.params?.id}</Text> */}
-        {/* <Text>{data.id}</Text> */}
-        <Image style={styles.image} source={data.thumbnailImage} />
+        <Image style={styles.image} source={data[index]?.thumbnailImage} />
         <View style={styles.userContainer}>
           <Image source={userInfo.profileImage} style={styles.userImage} />
           <Text
@@ -68,17 +63,17 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
                 ellipsizeMode={'tail'}
                 style={styles.title}
               >
-                {data.title}
+                {data[index]?.title}
               </Text>
-              <Text style={styles.createdAt}>{data.createdAt}</Text>
+              <Text style={styles.createdAt}>{data[index]?.createdAt}</Text>
             </View>
             <Button title="찜" onPress={() => Alert.alert('찜!')} />
           </View>
           <Text style={styles.price}>
-            가격 : {data.price.toLocaleString()}원
+            가격 : {data[index]?.price.toLocaleString()}원
           </Text>
           <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.text}>
-            {data.body}
+            ID is {route.params?.id}
           </Text>
         </View>
       </View>
