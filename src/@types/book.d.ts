@@ -9,8 +9,3 @@ interface IBookItem {
   isSoldOut: boolean;
   createdAt: string;
 }
-
-interface IBookList {
-  data: IBookItem[];
-  onPressBookDetail: (id: number) => void;
-}
