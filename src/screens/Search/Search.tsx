@@ -24,10 +24,6 @@ const Search = () => {
     setSearchValue(inputValue);
   };
 
-  const onPressBookDetail = (id: number) => {
-    navigation.navigate('BookDetail', { id });
-  };
-
   const SEARCH_WORDS = ['갤럭시', '아이폰', '맥북'];
   const _defaultPage = () => {
     return (
@@ -69,7 +65,7 @@ const Search = () => {
   const _searchPage = () => {
     return (
       <View style={{ flex: 1 }}>
-        <BookList onPressBookDetail={onPressBookDetail} />
+        <BookList />
       </View>
     );
   };
