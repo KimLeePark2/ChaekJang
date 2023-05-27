@@ -13,13 +13,19 @@ import {
 
 const Search = () => {
   const navigation =
-    useNavigation<NativeStackNavigationProp<SearchStackParamsType>>();
+    useNavigation<
+      NativeStackNavigationProp<SearchStackParamsType & RootStackParamsType>
+    >();
   const [inputValue, setInputValue] = React.useState('');
   const [searchValue, setSearchValue] = React.useState('');
 
   const onSubmit = () => {
     // navigation.navigate('SearchResult', { inputValue });
     setSearchValue(inputValue);
+  };
+
+  const onPressBookDetail = (id: number) => {
+    navigation.navigate('BookDetail', { id });
   };
 
   const SEARCH_WORDS = ['갤럭시', '아이폰', '맥북'];
@@ -63,7 +69,7 @@ const Search = () => {
   const _searchPage = () => {
     return (
       <View style={{ flex: 1 }}>
-        <BookList />
+        <BookList onPressBookDetail={onPressBookDetail} />
       </View>
     );
   };
