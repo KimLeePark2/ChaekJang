@@ -10,6 +10,7 @@ interface IBookItem {
   createdAt: string;
 }
 
-type onPressBookDetailType = {
+interface IBookList {
+  data: IBookItem[];
   onPressBookDetail: (id: number) => void;
-};
+}

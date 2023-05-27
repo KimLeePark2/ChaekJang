@@ -2,15 +2,15 @@ import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import BookItem from './BookItem';
 import { DUMMY } from './DUMMY';
-import { onPressBookDetailType } from 'src/@types/book';
+import type { IBookList } from 'src/@types/book';
 
-type PropsType = onPressBookDetailType;
+type PropsType = IBookList;
 
-const BookList: React.FC<PropsType> = ({ onPressBookDetail }) => {
+const BookList: React.FC<PropsType> = ({ onPressBookDetail, data = DUMMY }) => {
   return (
     <View>
       <FlatList
-        data={DUMMY}
+        data={data}
         renderItem={({ item }) => (
           <BookItem {...item} onPressBookDetail={onPressBookDetail} />
         )}

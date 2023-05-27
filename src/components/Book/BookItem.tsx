@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
 import { getFormattedCreatedAt } from 'src/utils/format';
-import type { IBookItem, onPressBookDetailType } from 'src/@types/book';
+import type { IBookItem, IBookList } from 'src/@types/book';
 
-type PropsType = IBookItem & onPressBookDetailType;
+type PropsType = IBookItem & Pick<IBookList, 'onPressBookDetail'>;
 
 const BookItem: React.FC<PropsType> = ({
   id,
