@@ -18,6 +18,10 @@ const Home: React.FC<PropsType> = ({ navigation }) => {
   const onPressSignIn = () => {
     navigation.navigate('SignIn');
   };
+
+  const onPressNewBook = () => {
+    navigation.push('NewBook');
+  };
   return (
     <SafeAreaView edges={['bottom']}>
       <View
@@ -28,10 +32,13 @@ const Home: React.FC<PropsType> = ({ navigation }) => {
         }}
       >
         <Pressable onPress={() => onPressBookDetail(1)}>
-          <Text style={{ color: 'blue' }}>click me (detail page)</Text>
+          <Text style={{ color: 'blue' }}>(detail page)</Text>
         </Pressable>
         <Pressable onPress={onPressSignIn}>
-          <Text style={{ color: 'blue' }}>click me (sign-in page)</Text>
+          <Text style={{ color: 'blue' }}>(sign-in page)</Text>
+        </Pressable>
+        <Pressable onPress={onPressNewBook}>
+          <Text style={{ color: 'blue' }}>(new-book page)</Text>
         </Pressable>
       </View>
       <View>
