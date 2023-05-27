@@ -1,9 +1,9 @@
+import React from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Pressable, Text, View } from 'react-native';
+import BookList from 'src/components/Book/BookList';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
-import { Pressable, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import BookList from 'src/components/Book/BookList';
 
 type PropsType = CompositeScreenProps<
   NativeStackScreenProps<HomeStackParamsType, 'Home'>,
@@ -11,8 +11,8 @@ type PropsType = CompositeScreenProps<
 >;
 
 const Home: React.FC<PropsType> = ({ navigation }) => {
-  const onPressBookDetail = () => {
-    navigation.navigate('BookDetail');
+  const onPressBookDetail = (id: number) => {
+    navigation.navigate('BookDetail', { id });
   };
 
   const onPressSignIn = () => {
@@ -27,7 +27,7 @@ const Home: React.FC<PropsType> = ({ navigation }) => {
           height: 30,
         }}
       >
-        <Pressable onPress={onPressBookDetail}>
+        <Pressable onPress={() => onPressBookDetail(1)}>
           <Text style={{ color: 'blue' }}>click me (detail page)</Text>
         </Pressable>
         <Pressable onPress={onPressSignIn}>
@@ -35,7 +35,7 @@ const Home: React.FC<PropsType> = ({ navigation }) => {
         </Pressable>
       </View>
       <View>
-        <BookList />
+        <BookList onPressBookDetail={onPressBookDetail} />
       </View>
     </SafeAreaView>
   );
