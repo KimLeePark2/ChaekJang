@@ -1,8 +1,9 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import MainTab from 'src/navigations/main/MainTab';
-import SignIn from 'src/screens/Auth/SignIn';
-import BookDetail from 'src/screens/Book/BookDetail';
+import MainTab from '@navigations/main/MainTab';
+import SignIn from '@screens/Auth/SignIn';
+import BookDetail from '@screens/Book/BookDetail';
+import NewBook from '@screens/Book/NewBook';
 
 const Stack = createNativeStackNavigator<RootStackParamsType>();
 
@@ -17,6 +18,11 @@ const RootStack = () => {
       <Stack.Screen
         name="BookDetail"
         component={BookDetail}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="NewBook"
+        component={NewBook}
         options={{ headerShown: false }}
       />
       <Stack.Screen

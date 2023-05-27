@@ -1,9 +1,10 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import BookList from 'src/components/Book/BookList';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import NewBookButton from '@components/NewBookButton';
 
 type PropsType = CompositeScreenProps<
   NativeStackScreenProps<HomeStackParamsType, 'Home'>,
@@ -11,35 +12,34 @@ type PropsType = CompositeScreenProps<
 >;
 
 const Home: React.FC<PropsType> = ({ navigation }) => {
-  const onPressBookDetail = (id: number) => {
-    navigation.navigate('BookDetail', { id });
-  };
-
   const onPressSignIn = () => {
     navigation.navigate('SignIn');
   };
+
   return (
     <SafeAreaView edges={['bottom']}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          height: 30,
-        }}
-      >
+      <View style={styles.container}>
         <Pressable onPress={onPressSignIn}>
-          <Text style={{ color: 'blue' }}>click me (sign-in page)</Text>
+          <Text style={styles.temporaryText}>(sign-in page)</Text>
         </Pressable>
       </View>
       <View>
-        <BookList onPressBookDetail={onPressBookDetail} />
+        <BookList />
       </View>
+      <NewBookButton />
     </SafeAreaView>
   );
 };
 
-// const styles = StyleSheet.create({
-//   block: {},
-// });
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    height: 30,
+  },
+  temporaryText: {
+    color: 'blue',
+  },
+});
 
 export default Home;

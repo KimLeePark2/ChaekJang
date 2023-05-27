@@ -13,7 +13,9 @@ import {
 
 const Search = () => {
   const navigation =
-    useNavigation<NativeStackNavigationProp<SearchStackParamsType>>();
+    useNavigation<
+      NativeStackNavigationProp<SearchStackParamsType & RootStackParamsType>
+    >();
   const [inputValue, setInputValue] = React.useState('');
   const [searchValue, setSearchValue] = React.useState('');
 
