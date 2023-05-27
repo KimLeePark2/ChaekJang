@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
 import { getFormattedCreatedAt } from 'src/utils/format';
-import type { IBookItem, IBookList } from 'src/@types/book';
+import type { IBookItem } from 'src/@types/book';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-type PropsType = IBookItem & Pick<IBookList, 'onPressBookDetail'>;
+type PropsType = IBookItem;
 
 const BookItem: React.FC<PropsType> = ({
   id,
@@ -13,10 +15,12 @@ const BookItem: React.FC<PropsType> = ({
   wishCount,
   isSoldOut,
   createdAt,
-  onPressBookDetail,
 }) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamsType>>();
+
   return (
-    <Pressable onPress={() => onPressBookDetail(id)}>
+    <Pressable onPress={() => navigation.navigate('BookDetail', { id })}>
       <View style={styles.item}>
         <Image source={thumbnailImage} style={styles.image} />
         <View style={styles.container}>
