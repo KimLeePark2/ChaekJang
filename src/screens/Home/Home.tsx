@@ -27,9 +27,6 @@ const Home: React.FC<PropsType> = ({ navigation }) => {
           height: 30,
         }}
       >
-        <Pressable onPress={() => onPressBookDetail(1)}>
-          <Text style={{ color: 'blue' }}>click me (detail page)</Text>
-        </Pressable>
         <Pressable onPress={onPressSignIn}>
           <Text style={{ color: 'blue' }}>click me (sign-in page)</Text>
         </Pressable>
