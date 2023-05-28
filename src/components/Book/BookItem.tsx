@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
-import { getFormattedCreatedAt } from 'src/utils/format';
-import type { IBookItem } from 'src/@types/book';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { getFormattedCreatedAt } from '@utils/format';
+import type { IBookItem } from 'src/@types/book';
 
 type PropsType = IBookItem;
 

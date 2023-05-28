@@ -15,7 +15,3 @@ interface IUserInfo {
   profileImage: ImageSourcePropType;
   nickname: string;
 }
-
-type onPressBookDetailType = {
-  onPressBookDetail: (id: number) => void;
-};

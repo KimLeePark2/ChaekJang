@@ -61,7 +61,7 @@ const BookEditor: React.FC<PropsType> = ({
           ref={priceRef}
           placeholder="가격"
           inputMode="numeric"
-          maxLength={12}
+          maxLength={10}
           value={price?.toLocaleString()}
           onChangeText={(newPrice: string) =>
             setPrice(Number(newPrice.replaceAll(',', '')))

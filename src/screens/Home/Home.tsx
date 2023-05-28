@@ -1,10 +1,10 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import BookList from 'src/components/Book/BookList';
-import { CompositeScreenProps } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import NewBookButton from '@components/NewBookButton';
+import { CompositeScreenProps } from '@react-navigation/native';
+import BookList from '@components/Book/BookList';
+import NewBookButton from '@components/Book/NewBookButton';
 
 type PropsType = CompositeScreenProps<
   NativeStackScreenProps<HomeStackParamsType, 'Home'>,
