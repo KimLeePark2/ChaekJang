@@ -2,11 +2,16 @@ import React from 'react';
 import styled from '@emotion/native';
 import KAKAO_LOGIN_LOGO_IMAGE from '@assets/images/kakao_login_large_wide.png';
 import { getProfile, login } from '@react-native-seoul/kakao-login';
+import { TokenTypes } from '@hooks/useToken';
 
 const Login = () => {
   const onPressLogin = async () => {
     try {
-      const data = await login();
+      const token: TokenTypes = await login();
+      const profile = await getProfile();
+
+      console.log('token', token);
+      console.log('profile', profile);
 
       // token aysnc storage 저장
       // 프로필 불러오기 (닉네임) -> id, 닉네임 서버 저장
