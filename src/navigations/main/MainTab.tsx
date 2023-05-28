@@ -1,11 +1,9 @@
-import MainHeader from '@components/Header/MainHeader';
 import SearchStack from '@navigations/stack/SearchStack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 import HomeStack from 'src/navigations/stack/HomeStack';
 import MyPageStack from 'src/navigations/stack/MyPageStack';
-import Search from 'src/screens/Search/Search';
 
 const Tab = createBottomTabNavigator<MainTabParamsType>();
 
