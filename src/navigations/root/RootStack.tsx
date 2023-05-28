@@ -1,9 +1,9 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainTab from '@navigations/main/MainTab';
-import SignIn from '@screens/Auth/SignIn';
 import BookDetail from '@screens/Book/BookDetail';
 import NewBook from '@screens/Book/NewBook';
+import Login from '@screens/Auth/Login';
 
 const Stack = createNativeStackNavigator<RootStackParamsType>();
 
@@ -27,7 +27,7 @@ const RootStack = () => {
       />
       <Stack.Screen
         name="SignIn"
-        component={SignIn}
+        component={Login}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
