@@ -2,7 +2,8 @@ type RootStackParamsType = {
   MainTab: MainTabParamsType;
   SignIn: undefined;
   BookRegister: undefined;
-  BookDetail: undefined;
+  BookDetail: { id: number };
+  NewBook: undefined;
 };
 
 type MainTabParamsType = {

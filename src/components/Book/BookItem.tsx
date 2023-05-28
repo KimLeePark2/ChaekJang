@@ -1,9 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
 import { getFormattedCreatedAt } from 'src/utils/format';
 import type { IBookItem } from 'src/@types/book';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-const BookItem: React.FC<IBookItem> = ({
+type PropsType = IBookItem;
+
+const BookItem: React.FC<PropsType> = ({
+  id,
   thumbnailImage,
   title,
   price,
@@ -11,22 +16,29 @@ const BookItem: React.FC<IBookItem> = ({
   isSoldOut,
   createdAt,
 }) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamsType>>();
+
   return (
-    <View style={styles.item}>
-      <Image source={thumbnailImage} style={styles.image} />
-      <View style={styles.container}>
-        <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.title}>
-          {title}
-        </Text>
-        <Text style={styles.createdAt}>{getFormattedCreatedAt(createdAt)}</Text>
-        <View style={styles.priceContainer}>
-          {isSoldOut && <Text style={styles.isSoldOut}>판매완료</Text>}
-          <Text style={styles.price}>{price.toLocaleString()}원</Text>
+    <Pressable onPress={() => navigation.navigate('BookDetail', { id })}>
+      <View style={styles.item}>
+        <Image source={thumbnailImage} style={styles.image} />
+        <View style={styles.container}>
+          <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.title}>
+            {title}
+          </Text>
+          <Text style={styles.createdAt}>
+            {getFormattedCreatedAt(createdAt)}
+          </Text>
+          <View style={styles.priceContainer}>
+            {isSoldOut && <Text style={styles.isSoldOut}>판매완료</Text>}
+            <Text style={styles.price}>{price.toLocaleString()}원</Text>
+          </View>
+          <View style={styles.spacing} />
+          <Text style={styles.wishCount}>{wishCount}</Text>
         </View>
-        <View style={styles.spacing} />
-        <Text style={styles.wishCount}>{wishCount}</Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
