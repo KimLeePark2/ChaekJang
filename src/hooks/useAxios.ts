@@ -30,7 +30,7 @@ export default function useAxios() {
           console.error('[RequestApi Error]', err);
 
           return {
-            data: {},
+            data: {} as T,
             status: -1,
           };
         });
