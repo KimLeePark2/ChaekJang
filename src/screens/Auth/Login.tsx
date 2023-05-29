@@ -1,9 +1,9 @@
 import React from 'react';
-import styled from '@emotion/native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import useToken from '@hooks/useToken';
-import KAKAO_LOGIN_LOGO_IMAGE from '@assets/images/kakao_login_large_wide.png';
-import { getProfile, login } from '@react-native-seoul/kakao-login';
 import useAxios from '@hooks/useAxios';
+import { getProfile, login } from '@react-native-seoul/kakao-login';
+import KAKAO_LOGIN_LOGO_IMAGE from '@assets/images/kakao_login_large_wide.png';
 
 const Login = () => {
   const { __setTokenInAsyncStorage: setAccessToken } = useToken('accessToken');
@@ -36,30 +36,46 @@ const Login = () => {
   };
 
   return (
-    <Container>
-      <LoginPressable onPress={onPressLogin}>
-        <LoginImage source={KAKAO_LOGIN_LOGO_IMAGE} />
-      </LoginPressable>
-    </Container>
+    <View style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.subtitle}>믿을 수 있는 중고서점</Text>
+        <Text style={styles.title}>책장정리</Text>
+      </View>
+      <Pressable onPress={onPressLogin} style={styles.loginPressable}>
+        <Image source={KAKAO_LOGIN_LOGO_IMAGE} style={styles.loginImage} />
+      </Pressable>
+    </View>
   );
 };
 
 export default Login;
 
-const Container = styled.View`
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 20px;
-`;
-
-const LoginPressable = styled.Pressable`
-  width: 100%;
-  height: auto;
-`;
-
-const LoginImage = styled.Image`
-  width: 100%;
-  resize-mode: contain;
-`;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 30,
+  },
+  titleContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 4,
+  },
+  subtitle: {
+    fontSize: 18,
+    color: '#403321',
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: '900',
+    color: '#403321',
+  },
+  loginPressable: {
+    width: '100%',
+  },
+  loginImage: {
+    width: '100%',
+    resizeMode: 'contain',
+  },
+});
