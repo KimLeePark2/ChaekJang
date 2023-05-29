@@ -9,7 +9,6 @@ type RootStackParamsType = {
 type MainTabParamsType = {
   HomeStack: HomeStackParamsType;
   SearchStack: SearchStackParamsType;
-  ChatStack: undefined;
   MyPageStack: MyPageStackParamsType;
 };
 
@@ -20,11 +19,6 @@ type HomeStackParamsType = {
 type SearchStackParamsType = {
   Search: undefined;
   SearchResult: { inputValue: string };
-};
-
-type ChatStackParamsType = {
-  Chat: undefined;
-  ChatDetail: undefined;
 };
 
 type MyPageStackParamsType = {
