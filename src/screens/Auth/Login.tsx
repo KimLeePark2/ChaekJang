@@ -3,11 +3,13 @@ import styled from '@emotion/native';
 import useToken from '@hooks/useToken';
 import KAKAO_LOGIN_LOGO_IMAGE from '@assets/images/kakao_login_large_wide.png';
 import { getProfile, login } from '@react-native-seoul/kakao-login';
+import useAxios from '@hooks/useAxios';
 
 const Login = () => {
   const { __setTokenInAsyncStorage: setAccessToken } = useToken('accessToken');
   const { __setTokenInAsyncStorage: setRefreshToken } =
     useToken('refreshToken');
+  const { requestSecureApi } = useAxios();
 
   const onPressLogin = async () => {
     try {
@@ -18,10 +20,16 @@ const Login = () => {
       setAccessToken(token.accessToken);
       setRefreshToken(token.refreshToken);
 
-      // POST : 프로필 정보 (id, nickname)
+      // POST : 프로필 정보
+      const { data, status } = await requestSecureApi('post', '/v1/users', {
+        nickname: profile.nickname,
+        provider: 'KAKAO',
+        providerId: profile.id,
+      });
 
-      // token aysnc storage 저장
-      // 프로필 불러오기 (닉네임) -> id, 닉네임 서버 저장
+      if (status === 200) {
+        console.log(data);
+      }
     } catch (err) {
       console.error(err);
     }
