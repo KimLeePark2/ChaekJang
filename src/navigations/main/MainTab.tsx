@@ -4,6 +4,9 @@ import React from 'react';
 import { Text } from 'react-native';
 import HomeStack from 'src/navigations/stack/HomeStack';
 import MyPageStack from 'src/navigations/stack/MyPageStack';
+import HomeIcon from 'src/assets/svgs/home.svg'
+import SearchIcon from 'src/assets/svgs/search.svg'
+import MyPageIcon from 'src/assets/svgs/gitlab.svg'
 
 const Tab = createBottomTabNavigator<MainTabParamsType>();
 
@@ -11,16 +14,17 @@ const MainTab = () => {
   return (
     <Tab.Navigator
       screenOptions={{
+        tabBarStyle: {backgroundColor: '#403321', paddingTop: 4},
         headerShown: false,
-        tabBarShowLabel: false,
-        tabBarActiveTintColor: '#6200ee',
+        tabBarActiveTintColor: '#F0CA6D',
       }}
     >
       <Tab.Screen
         name="HomeStack"
         component={HomeStack}
         options={{
-          tabBarIcon: ({ color }) => <Text style={{ color }}>Home</Text>,
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color }) => <HomeIcon style={{color}} />,
           headerShown: false,
         }}
       />
@@ -28,7 +32,8 @@ const MainTab = () => {
         name="SearchStack"
         component={SearchStack}
         options={{
-          tabBarIcon: ({ color }) => <Text style={{ color }}>Search</Text>,
+          tabBarLabel: 'Search',
+          tabBarIcon: ({ color }) => <SearchIcon style={{color}} />,
           headerShown: false,
         }}
       />
@@ -36,7 +41,8 @@ const MainTab = () => {
         name="MyPageStack"
         component={MyPageStack}
         options={{
-          tabBarIcon: ({ color }) => <Text style={{ color }}>MyPage</Text>,
+          tabBarLabel: 'MyPage',
+          tabBarIcon: ({ color }) => <MyPageIcon style={{color}} />,
           headerShown: false,
         }}
       />

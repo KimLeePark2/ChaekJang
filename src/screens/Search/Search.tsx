@@ -10,7 +10,9 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
+import XIcon from 'src/assets/svgs/x.svg';
 
+const SEARCH_WORDS = ['갤럭시', '아이폰', '맥북'];
 const Search = () => {
   const navigation =
     useNavigation<
@@ -18,13 +20,16 @@ const Search = () => {
     >();
   const [inputValue, setInputValue] = React.useState('');
   const [searchValue, setSearchValue] = React.useState('');
+  const [words, setWords] = React.useState(SEARCH_WORDS);
 
   const onSubmit = () => {
     // navigation.navigate('SearchResult', { inputValue });
     setSearchValue(inputValue);
+    setWords(prev => {
+      return [inputValue, ...prev];
+    });
   };
 
-  const SEARCH_WORDS = ['갤럭시', '아이폰', '맥북'];
   const _defaultPage = () => {
     return (
       <View style={{ flex: 1, gap: 8 }}>
@@ -39,22 +44,38 @@ const Search = () => {
             paddingHorizontal: 20,
           }}
         >
-          {SEARCH_WORDS.map((item, index) => {
+          {words.map((item, index) => {
             return (
               <View
-                key={index}
                 style={{
-                  width: '45%',
                   flexDirection: 'row',
                   justifyContent: 'space-between',
+                  width: '45%',
                   borderBottomWidth: 1,
                   borderColor: '#cccccc',
                   paddingHorizontal: 2,
                   paddingVertical: 4,
+                  alignItems: 'center',
                 }}
               >
-                <Text>{item}</Text>
-                <Text>X</Text>
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => {
+                    setInputValue(item);
+                  }}
+                >
+                  <Text>{item}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    const newWords = words.filter((_, idx) => {
+                      return idx !== index;
+                    });
+                    setWords(newWords);
+                  }}
+                >
+                  <XIcon style={{ color: '#48BA95' }} />
+                </TouchableOpacity>
               </View>
             );
           })}
@@ -72,42 +93,59 @@ const Search = () => {
   return (
     <View style={{ flex: 1 }}>
       <MainHeader>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            width: '100%',
-          }}
-        >
-          <TextInput
-            value={inputValue}
-            onChangeText={setInputValue}
-            placeholder="검색어를 입력하세요"
-            placeholderTextColor={'#888'}
+        <View>
+          <View
             style={{
-              borderRadius: 8,
-              backgroundColor: '#ececec',
-              width: '70%',
-              paddingHorizontal: 8,
-              paddingVertical: 4,
-              fontSize: 12,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              width: '95%',
             }}
-          />
-          {inputValue && (
-            <TouchableOpacity
-              onPress={() => {
-                setInputValue('');
-                setSearchValue('');
+          >
+            <TextInput
+              value={inputValue}
+              onChangeText={setInputValue}
+              placeholder="검색어를 입력하세요"
+              placeholderTextColor={'#888'}
+              style={{
+                borderRadius: 8,
+                backgroundColor: '#ececec',
+                width: '86%',
+                paddingHorizontal: 8,
+                paddingVertical: 10,
+                fontSize: 12,
               }}
-              style={{ position: 'absolute', right: '33%' }}
+            />
+            <View>
+              {inputValue && (
+                <TouchableOpacity
+                  onPress={() => {
+                    setInputValue('');
+                    setSearchValue('');
+                  }}
+                >
+                  <XIcon
+                    style={{
+                      color: '#48BA95',
+                      right: 10,
+                      bottom: -12,
+                      position: 'absolute',
+                    }}
+                  />
+                </TouchableOpacity>
+              )}
+            </View>
+            <TouchableOpacity
+              onPress={onSubmit}
+              style={{
+                backgroundColor: '#48BA95',
+                borderRadius: 4,
+                padding: 8,
+              }}
             >
-              <Text>X</Text>
+              <Text style={{ color: 'white', fontWeight: 'bold' }}>검색</Text>
             </TouchableOpacity>
-          )}
-          <TouchableOpacity onPress={onSubmit}>
-            <Text>검색</Text>
-          </TouchableOpacity>
+          </View>
         </View>
       </MainHeader>
       <View style={{ paddingHorizontal: 14, paddingVertical: 10, flex: 1 }}>
