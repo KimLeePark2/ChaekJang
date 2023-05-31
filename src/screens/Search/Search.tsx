@@ -47,6 +47,7 @@ const Search = () => {
           {words.map((item, index) => {
             return (
               <View
+                key={index}
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
