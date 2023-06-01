@@ -5,22 +5,28 @@ import {
   Text,
   TextInput,
   Pressable,
-  Alert,
+  Platform,
+  Image,
 } from 'react-native';
+import { type Asset, launchImageLibrary } from 'react-native-image-picker';
 
 type PropsType = {
+  photo: Asset[];
   title: string;
   price: number;
   description: string;
+  setPhoto: React.Dispatch<React.SetStateAction<Asset[]>>;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
   setPrice: React.Dispatch<React.SetStateAction<number>>;
   setDescription: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const BookEditor: React.FC<PropsType> = ({
+  photo,
   title,
   price,
   description,
+  setPhoto,
   setTitle,
   setPrice,
   setDescription,
@@ -28,7 +34,19 @@ const BookEditor: React.FC<PropsType> = ({
   const priceRef = useRef<TextInput>(null);
 
   const onPressNewPhoto = () => {
-    Alert.alert('Comming Soon ^^7');
+    launchImageLibrary(
+      {
+        mediaType: 'photo',
+        includeBase64: Platform.OS === 'android',
+      },
+      ({ didCancel, assets }) => {
+        if (didCancel) {
+          return;
+        }
+        console.log(assets && assets[0]);
+        assets && setPhoto(assets);
+      },
+    );
   };
 
   return (
@@ -37,12 +55,10 @@ const BookEditor: React.FC<PropsType> = ({
         <Pressable onPress={onPressNewPhoto} style={styles.photo}>
           <Text>+</Text>
         </Pressable>
-        <Pressable style={styles.photo}>
-          <Text>Photo</Text>
-        </Pressable>
-        <Pressable style={styles.photo}>
-          <Text>Photo</Text>
-        </Pressable>
+        <Image
+          source={{ uri: photo.length === 0 ? undefined : photo[0].uri }}
+          style={styles.photo}
+        />
       </View>
       <View style={styles.separator} />
       <TextInput
