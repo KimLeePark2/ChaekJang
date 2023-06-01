@@ -12,7 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import type { IBookItem, IUserInfo } from 'src/@types/book';
 import { DUMMY } from 'src/components/Book/DUMMY';
-import ChevronLeft from 'src/assets/svgs/chevron-left.svg'
+import ChevronLeft from 'src/assets/svgs/chevron-left.svg';
 
 type PropsType = NativeStackScreenProps<RootStackParamsType, 'BookDetail'>;
 
@@ -41,7 +41,7 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
         }}
       >
         <Pressable onPress={onPressBack}>
-          <ChevronLeft style={{color: '#48BA95', padding: 4}} />
+          <ChevronLeft style={{ color: '#48BA95', padding: 4 }} />
         </Pressable>
       </View>
       <View style={styles.container}>
