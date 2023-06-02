@@ -20,10 +20,14 @@ const Search = () => {
     >();
   const [inputValue, setInputValue] = React.useState('');
   const [isSearch, setIsSearch] = React.useState(false);
-  const [words, setWords] = React.useState(SEARCH_WORDS);
+  const [searchWords, setSearchWords] = React.useState(SEARCH_WORDS);
   const [replaceInputValue, setReplaceInputValue] = React.useState(
     inputValue?.replace(/ /g, ''),
   );
+
+  const resetSearchWords = () => {
+    setSearchWords([]);
+  };
 
   React.useEffect(() => {
     setReplaceInputValue(inputValue?.replace(/ /g, ''));
@@ -36,8 +40,8 @@ const Search = () => {
       return;
     }
 
-    if (!words.some(item => item === inputValue)) {
-      setWords(prev => {
+    if (!searchWords.some(item => item === inputValue)) {
+      setSearchWords(prev => {
         return [inputValue.trim(), ...prev];
       });
     }
@@ -47,7 +51,21 @@ const Search = () => {
   const _defaultPage = () => {
     return (
       <View style={{ flex: 1, gap: 8 }}>
-        <Text style={{ fontWeight: '700', fontSize: 14 }}>최근 검색어</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            width: '95%',
+          }}
+        >
+          <Text style={{ fontWeight: '700', fontSize: 16 }}>최근 검색어</Text>
+          <TouchableOpacity
+            onPress={resetSearchWords}
+            style={{ justifyContent: 'flex-end' }}
+          >
+            <Text style={{ color: 'grey', fontSize: 12 }}>검색기록 삭제</Text>
+          </TouchableOpacity>
+        </View>
         <ScrollView
           contentContainerStyle={{
             flexDirection: 'row',
@@ -56,9 +74,10 @@ const Search = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
             paddingHorizontal: 20,
+            marginTop: 10,
           }}
         >
-          {words.map((item, index) => {
+          {searchWords.map((item, index) => {
             return (
               <View
                 key={index}
@@ -83,10 +102,10 @@ const Search = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    const newWords = words.filter((_, idx) => {
+                    const newWords = searchWords.filter((_, idx) => {
                       return idx !== index;
                     });
-                    setWords(newWords);
+                    setSearchWords(newWords);
                   }}
                 >
                   <XIcon style={{ color: '#48BA95' }} />
