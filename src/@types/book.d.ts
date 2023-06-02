@@ -4,6 +4,7 @@ interface IBookItem {
   id: number;
   thumbnailImage: ImageSourcePropType;
   title: string;
+  writer: string;
   price: number;
   wishCount: number;
   isSoldOut: boolean;

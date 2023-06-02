@@ -2,7 +2,7 @@ import BookList from '@components/Book/BookList';
 import MainHeader from '@components/Header/MainHeader';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
+import React, { startTransition, useState } from 'react';
 import {
   View,
   Text,
@@ -31,9 +31,10 @@ const Search = () => {
     const replaceSearchValue = searchValue?.replace(/ /g, '');
     if (replaceSearchValue) {
       setBookListData(prev => {
-        console.log(replaceSearchValue.length);
-        return prev.filter(item =>
-          item.title.replace(/ /g, '').includes(replaceSearchValue),
+        return prev.filter(
+          item =>
+            item.title.replace(/ /g, '').includes(replaceSearchValue) ||
+            item.writer.replace(/ /g, '').includes(replaceSearchValue),
         );
       });
     } else {
