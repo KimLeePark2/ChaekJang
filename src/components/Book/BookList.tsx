@@ -6,27 +6,13 @@ import type { IBookItem } from 'src/@types/book';
 
 type PropsType = {
   data?: IBookItem[];
-  searchValue?: string;
 };
 
-const BookList: React.FC<PropsType> = ({ searchValue, data = DUMMY }) => {
-  const [renderData, setRenderData] = useState(data);
-  React.useEffect(() => {
-    const replaceSearchValue = searchValue?.replace(/ /g, '');
-    if (replaceSearchValue) {
-      setRenderData(prev => {
-        console.log(replaceSearchValue.length);
-        return prev.filter(item =>
-          item.title.replace(/ /g, '').includes(replaceSearchValue),
-        );
-      });
-    }
-  }, [searchValue]);
-
+const BookList: React.FC<PropsType> = ({ data = DUMMY }) => {
   return (
     <View>
       <FlatList
-        data={renderData}
+        data={data}
         renderItem={({ item }) => <BookItem {...item} />}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         keyExtractor={item => item.id.toString()}

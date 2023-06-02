@@ -2,7 +2,7 @@ import BookList from '@components/Book/BookList';
 import MainHeader from '@components/Header/MainHeader';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,8 @@ import {
   ScrollView,
 } from 'react-native';
 import XIcon from 'src/assets/svgs/x.svg';
+import { DUMMY } from '@components/Book/DUMMY';
+import NotFound from '@screens/Search/NotFound';
 
 const SEARCH_WORDS = ['갤럭시', '아이폰', '맥북'];
 const Search = () => {
@@ -19,11 +21,25 @@ const Search = () => {
       NativeStackNavigationProp<SearchStackParamsType & RootStackParamsType>
     >();
   const [inputValue, setInputValue] = React.useState('');
-  const [isSearch, setIsSearch] = React.useState(false);
+  const [searchValue, setSearchValue] = React.useState('');
   const [searchWords, setSearchWords] = React.useState(SEARCH_WORDS);
   const [replaceInputValue, setReplaceInputValue] = React.useState(
     inputValue?.replace(/ /g, ''),
   );
+  const [bookListData, setBookListData] = useState(DUMMY);
+  React.useEffect(() => {
+    const replaceSearchValue = searchValue?.replace(/ /g, '');
+    if (replaceSearchValue) {
+      setBookListData(prev => {
+        console.log(replaceSearchValue.length);
+        return prev.filter(item =>
+          item.title.replace(/ /g, '').includes(replaceSearchValue),
+        );
+      });
+    } else {
+      setBookListData(DUMMY);
+    }
+  }, [searchValue]);
 
   const resetSearchWords = () => {
     setSearchWords([]);
@@ -34,8 +50,7 @@ const Search = () => {
   }, [inputValue]);
 
   const onSubmit = () => {
-    // navigation.navigate('SearchResult', { inputValue });
-    console.log(replaceInputValue);
+    // navigation.navigate('NotFound', { inputValue });
     if (!replaceInputValue) {
       return;
     }
@@ -45,7 +60,7 @@ const Search = () => {
         return [inputValue.trim(), ...prev];
       });
     }
-    setIsSearch(true);
+    setSearchValue(replaceInputValue);
   };
 
   const _defaultPage = () => {
@@ -98,7 +113,7 @@ const Search = () => {
                     setInputValue(item);
                   }}
                 >
-                  <Text>{item}</Text>
+                  <Text style={{ width: 100 }}>{item}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
@@ -118,72 +133,75 @@ const Search = () => {
     );
   };
   const _searchPage = () => {
+    if (bookListData.length === 0) {
+      return <NotFound />;
+    }
     return (
       <View style={{ flex: 1 }}>
-        <BookList searchValue={replaceInputValue} />
+        <BookList data={bookListData} />
       </View>
     );
   };
+
   return (
     <View style={{ flex: 1 }}>
       <MainHeader>
-        <View>
-          <View
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '95%',
+            gap: 4,
+          }}
+        >
+          <TextInput
+            value={inputValue}
+            onChangeText={setInputValue}
+            placeholder="검색어를 입력하세요"
+            placeholderTextColor={'#888'}
             style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              width: '95%',
+              borderRadius: 8,
+              backgroundColor: '#ececec',
+              width: '86%',
+              paddingHorizontal: 8,
+              paddingVertical: 10,
+              fontSize: 12,
+            }}
+          />
+          <View>
+            {inputValue && (
+              <TouchableOpacity
+                onPress={() => {
+                  setInputValue('');
+                  setSearchValue('');
+                }}
+              >
+                <XIcon
+                  style={{
+                    color: '#48BA95',
+                    right: 10,
+                    bottom: -12,
+                    position: 'absolute',
+                  }}
+                />
+              </TouchableOpacity>
+            )}
+          </View>
+          <TouchableOpacity
+            onPress={onSubmit}
+            style={{
+              backgroundColor: '#48BA95',
+              borderRadius: 4,
+              padding: 8,
             }}
           >
-            <TextInput
-              value={inputValue}
-              onChangeText={setInputValue}
-              placeholder="검색어를 입력하세요"
-              placeholderTextColor={'#888'}
-              style={{
-                borderRadius: 8,
-                backgroundColor: '#ececec',
-                width: '86%',
-                paddingHorizontal: 8,
-                paddingVertical: 10,
-                fontSize: 12,
-              }}
-            />
-            <View>
-              {inputValue && (
-                <TouchableOpacity
-                  onPress={() => {
-                    setInputValue('');
-                    setIsSearch(false);
-                  }}
-                >
-                  <XIcon
-                    style={{
-                      color: '#48BA95',
-                      right: 10,
-                      bottom: -12,
-                      position: 'absolute',
-                    }}
-                  />
-                </TouchableOpacity>
-              )}
-            </View>
-            <TouchableOpacity
-              onPress={onSubmit}
-              style={{
-                backgroundColor: '#48BA95',
-                borderRadius: 4,
-                padding: 8,
-              }}
-            >
-              <Text style={{ color: 'white', fontWeight: 'bold' }}>검색</Text>
-            </TouchableOpacity>
-          </View>
+            <Text style={{ color: 'white', fontWeight: 'bold' }}>검색</Text>
+          </TouchableOpacity>
         </View>
       </MainHeader>
       <View style={{ paddingHorizontal: 14, paddingVertical: 10, flex: 1 }}>
-        {!isSearch ? _defaultPage() : _searchPage()}
+        {!searchValue ? _defaultPage() : _searchPage()}
       </View>
     </View>
   );

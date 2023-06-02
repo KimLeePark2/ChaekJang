@@ -3,7 +3,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Search from 'src/screens/Search/Search';
-import SearchResult from 'src/screens/Search/SearchResult';
+import NotFound from '@screens/Search/NotFound';
 
 const Stack = createNativeStackNavigator<SearchStackParamsType>();
 
@@ -17,7 +17,7 @@ const SearchStack = () => {
       />
       <Stack.Screen
         name="SearchResult"
-        component={SearchResult}
+        component={NotFound}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
