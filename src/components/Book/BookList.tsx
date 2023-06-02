@@ -14,7 +14,10 @@ const BookList: React.FC<PropsType> = ({ searchValue, data = DUMMY }) => {
   React.useEffect(() => {
     if (searchValue) {
       setRenderData(prev => {
-        return prev.filter(item => item.title.includes(searchValue));
+        const replaceSearchValue = searchValue.replace(/ /g, '');
+        return prev.filter(item =>
+          item.title.replace(/ /g, '').includes(replaceSearchValue),
+        );
       });
     }
   }, [searchValue]);
