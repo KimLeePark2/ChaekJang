@@ -1,16 +1,29 @@
+import useToken from '@hooks/useToken';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
-import { View, Text, StyleSheet, Pressable, Platform } from 'react-native';
+import { View, StyleSheet, Pressable, Platform, Alert } from 'react-native';
+import Plus from 'src/assets/svgs/plus.svg';
 
 const NewBookButton = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamsType>>();
+  const { token: accessToken } = useToken('accessToken');
+  const { token: refreshToken } = useToken('refreshToken');
+
+  const onPressPlus = () => {
+    if (accessToken && refreshToken) {
+      navigation.navigate('NewBook');
+      return;
+    }
+    Alert.alert('로그인 후 이용바랍니다.');
+    navigation.navigate('SignIn');
+  };
 
   return (
     <View style={styles.container}>
       <Pressable
-        onPress={() => navigation.navigate('NewBook')}
+        onPress={onPressPlus}
         style={({ pressed }) => [
           styles.button,
           Platform.OS === 'ios' && {
@@ -18,7 +31,7 @@ const NewBookButton = () => {
           },
         ]}
       >
-        <Text style={{ color: 'white' }}>+</Text>
+        <Plus style={styles.plus} />
       </Pressable>
     </View>
   );
@@ -27,7 +40,7 @@ const NewBookButton = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: 36,
+    bottom: 46,
     right: 16,
     width: 56,
     height: 56,
@@ -46,6 +59,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#48BA95',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  plus: {
+    color: 'white',
   },
 });
 
