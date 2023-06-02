@@ -19,20 +19,29 @@ const Search = () => {
       NativeStackNavigationProp<SearchStackParamsType & RootStackParamsType>
     >();
   const [inputValue, setInputValue] = React.useState('');
-  const [searchValue, setSearchValue] = React.useState('');
+  const [isSearch, setIsSearch] = React.useState(false);
   const [words, setWords] = React.useState(SEARCH_WORDS);
+  const [replaceInputValue, setReplaceInputValue] = React.useState(
+    inputValue?.replace(/ /g, ''),
+  );
+
+  React.useEffect(() => {
+    setReplaceInputValue(inputValue?.replace(/ /g, ''));
+  }, [inputValue]);
 
   const onSubmit = () => {
     // navigation.navigate('SearchResult', { inputValue });
-    if (!inputValue) {
+    console.log(replaceInputValue);
+    if (!replaceInputValue) {
       return;
     }
-    setSearchValue(inputValue);
+
     if (!words.some(item => item === inputValue)) {
       setWords(prev => {
-        return [inputValue, ...prev];
+        return [inputValue.trim(), ...prev];
       });
     }
+    setIsSearch(true);
   };
 
   const _defaultPage = () => {
@@ -92,7 +101,7 @@ const Search = () => {
   const _searchPage = () => {
     return (
       <View style={{ flex: 1 }}>
-        <BookList searchValue={searchValue} />
+        <BookList searchValue={replaceInputValue} />
       </View>
     );
   };
@@ -127,7 +136,7 @@ const Search = () => {
                 <TouchableOpacity
                   onPress={() => {
                     setInputValue('');
-                    setSearchValue('');
+                    setIsSearch(false);
                   }}
                 >
                   <XIcon
@@ -155,7 +164,7 @@ const Search = () => {
         </View>
       </MainHeader>
       <View style={{ paddingHorizontal: 14, paddingVertical: 10, flex: 1 }}>
-        {!searchValue ? _defaultPage() : _searchPage()}
+        {!isSearch ? _defaultPage() : _searchPage()}
       </View>
     </View>
   );
