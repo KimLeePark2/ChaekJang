@@ -24,10 +24,15 @@ const Search = () => {
 
   const onSubmit = () => {
     // navigation.navigate('SearchResult', { inputValue });
+    if (!inputValue) {
+      return;
+    }
     setSearchValue(inputValue);
-    setWords(prev => {
-      return [inputValue, ...prev];
-    });
+    if (!words.some(item => item === inputValue)) {
+      setWords(prev => {
+        return [inputValue, ...prev];
+      });
+    }
   };
 
   const _defaultPage = () => {
@@ -87,7 +92,7 @@ const Search = () => {
   const _searchPage = () => {
     return (
       <View style={{ flex: 1 }}>
-        <BookList />
+        <BookList searchValue={searchValue} />
       </View>
     );
   };
