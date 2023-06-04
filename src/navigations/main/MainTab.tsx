@@ -1,12 +1,11 @@
 import SearchStack from '@navigations/stack/SearchStack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { Text } from 'react-native';
 import HomeStack from 'src/navigations/stack/HomeStack';
 import MyPageStack from 'src/navigations/stack/MyPageStack';
-import HomeIcon from 'src/assets/svgs/home.svg'
-import SearchIcon from 'src/assets/svgs/search.svg'
-import MyPageIcon from 'src/assets/svgs/gitlab.svg'
+import HomeIcon from 'src/assets/svgs/home.svg';
+import SearchIcon from 'src/assets/svgs/search.svg';
+import MyPageIcon from 'src/assets/svgs/book.svg';
 
 const Tab = createBottomTabNavigator<MainTabParamsType>();
 
@@ -14,7 +13,7 @@ const MainTab = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: {backgroundColor: '#403321', paddingTop: 4},
+        tabBarStyle: { backgroundColor: '#403321', paddingTop: 4 },
         headerShown: false,
         tabBarActiveTintColor: '#F0CA6D',
       }}
@@ -24,7 +23,7 @@ const MainTab = () => {
         component={HomeStack}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => <HomeIcon style={{color}} />,
+          tabBarIcon: ({ color }) => <HomeIcon style={{ color }} />,
           headerShown: false,
         }}
       />
@@ -33,7 +32,7 @@ const MainTab = () => {
         component={SearchStack}
         options={{
           tabBarLabel: 'Search',
-          tabBarIcon: ({ color }) => <SearchIcon style={{color}} />,
+          tabBarIcon: ({ color }) => <SearchIcon style={{ color }} />,
           headerShown: false,
         }}
       />
@@ -41,8 +40,8 @@ const MainTab = () => {
         name="MyPageStack"
         component={MyPageStack}
         options={{
-          tabBarLabel: 'MyPage',
-          tabBarIcon: ({ color }) => <MyPageIcon style={{color}} />,
+          tabBarLabel: 'My Books',
+          tabBarIcon: ({ color }) => <MyPageIcon style={{ color }} />,
           headerShown: false,
         }}
       />

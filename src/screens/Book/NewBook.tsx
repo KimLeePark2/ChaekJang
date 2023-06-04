@@ -71,18 +71,16 @@ const NewBook: React.FC<PropsType> = ({ navigation }) => {
           </Pressable>
         </View>
         <View style={styles.separator} />
-        <View>
-          <BookEditor
-            photo={photo}
-            title={title}
-            price={price}
-            description={description}
-            setPhoto={setPhoto}
-            setTitle={setTitle}
-            setPrice={setPrice}
-            setDescription={setDescription}
-          />
-        </View>
+        <BookEditor
+          photo={photo}
+          title={title}
+          price={price}
+          description={description}
+          setPhoto={setPhoto}
+          setTitle={setTitle}
+          setPrice={setPrice}
+          setDescription={setDescription}
+        />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -90,6 +88,7 @@ const NewBook: React.FC<PropsType> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     paddingHorizontal: 10,
   },
   avoidingView: {

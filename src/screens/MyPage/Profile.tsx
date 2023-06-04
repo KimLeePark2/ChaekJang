@@ -1,7 +1,16 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 
 const Profile = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamsType>>();
+
+  const onPressSignIn = () => {
+    navigation.navigate('SignIn');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.profileContainer}>
@@ -19,6 +28,9 @@ const Profile = () => {
         </Pressable>
         <Pressable style={styles.navigation}>
           <Text style={styles.navigationTitle}>관심목록</Text>
+        </Pressable>
+        <Pressable onPress={onPressSignIn}>
+          <Text>(sign-in page)</Text>
         </Pressable>
       </View>
     </View>
