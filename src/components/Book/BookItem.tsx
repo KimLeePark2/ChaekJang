@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { getFormattedCreatedAt } from '@utils/format';
 import type { IBookItem } from 'src/@types/book';
+import Star from '@assets/svgs/star.svg';
 
 type PropsType = IBookItem;
 
@@ -35,7 +36,10 @@ const BookItem: React.FC<PropsType> = ({
             <Text style={styles.price}>{price.toLocaleString()}원</Text>
           </View>
           <View style={styles.spacing} />
-          <Text style={styles.wishCount}>{wishCount}</Text>
+          <View style={styles.wishCountContainer}>
+            <Star stroke={'#BFBFBF'} />
+            <Text style={styles.wishCount}>{wishCount}</Text>
+          </View>
         </View>
       </View>
     </Pressable>
@@ -68,8 +72,13 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 16,
   },
-  wishCount: {
+  wishCountContainer: {
     alignSelf: 'flex-end',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  wishCount: {
     color: '#BFBFBF',
   },
   spacing: {
@@ -77,6 +86,7 @@ const styles = StyleSheet.create({
   },
   priceContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
     gap: 5,
   },
   isSoldOut: {
