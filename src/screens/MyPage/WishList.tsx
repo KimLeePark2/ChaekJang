@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
-const WishHistory = () => {
+const WishList = () => {
   return (
     <View style={styles.block}>
       <Text>SalesHistory Page</Text>
@@ -13,4 +13,4 @@ const styles = StyleSheet.create({
   block: {},
 });
 
-export default WishHistory;
+export default WishList;

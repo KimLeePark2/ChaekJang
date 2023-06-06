@@ -3,7 +3,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Profile from 'src/screens/MyPage/Profile';
 import SalesHistory from '@screens/MyPage/SalesHistory';
-import WishHistory from '@screens/MyPage/WishHistory';
+import WishList from '@screens/MyPage/WishList';
 
 const Stack = createNativeStackNavigator<MyPageStackParamsType>();
 
@@ -21,8 +21,8 @@ const MyPageStack = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="WishHistory"
-        component={WishHistory}
+        name="WishList"
+        component={WishList}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
