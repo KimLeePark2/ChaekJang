@@ -3,13 +3,19 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 
+import MenuItem from '@components/MyPage/MenuItem';
+
 const Profile = () => {
   const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamsType>>();
+    useNavigation<
+      NativeStackNavigationProp<MyPageStackParamsType & RootStackParamsType>
+    >();
 
   const onPressSignIn = () => {
     navigation.navigate('SignIn');
   };
+  const onSalesHistory = () => navigation.navigate('SalesHistory');
+  const onWishList = () => navigation.navigate('WishList');
 
   return (
     <View style={styles.container}>
@@ -23,15 +29,9 @@ const Profile = () => {
         </Pressable>
       </View>
       <View style={styles.navigationContainer}>
-        <Pressable style={styles.navigation}>
-          <Text style={styles.navigationTitle}>판매서적</Text>
-        </Pressable>
-        <Pressable style={styles.navigation}>
-          <Text style={styles.navigationTitle}>관심목록</Text>
-        </Pressable>
-        <Pressable onPress={onPressSignIn}>
-          <Text>(sign-in page)</Text>
-        </Pressable>
+        <MenuItem name="판매내역" onPress={onSalesHistory} />
+        <MenuItem name="관심목록" onPress={onWishList} />
+        <MenuItem name="sign-in page" onPress={onPressSignIn} />
       </View>
     </View>
   );
@@ -64,8 +64,7 @@ const styles = StyleSheet.create({
   },
   navigationContainer: {
     flex: 1,
-    gap: 20,
-    padding: 30,
+    paddingVertical: 25,
     backgroundColor: '#fff',
   },
   navigation: {},
