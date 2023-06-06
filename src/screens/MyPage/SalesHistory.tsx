@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -9,13 +9,7 @@ import BookList from '@components/Book/BookList';
 type PropsType = NativeStackScreenProps<MyPageStackParamsType, 'SalesHistory'>;
 
 const SalesHistory: React.FC<PropsType> = ({ navigation }) => {
-  const [hidden, setHidden] = useState(false);
   const onPressBack = () => navigation.goBack();
-  const onScrolledToBottom = (isBottom: boolean) => {
-    if (hidden !== isBottom) {
-      setHidden(isBottom);
-    }
-  };
   return (
     <SafeAreaView edges={['bottom']} style={styles.container}>
       <View style={styles.header}>
@@ -28,7 +22,7 @@ const SalesHistory: React.FC<PropsType> = ({ navigation }) => {
         <Text style={styles.contents}>판매중인 게시글이 없어요</Text>
       </View> */}
       <View>
-        <BookList onScrolledToBottom={onScrolledToBottom} />
+        <BookList/>
       </View>
     </SafeAreaView>
   );
