@@ -9,20 +9,22 @@ const MenuItem = ({ name, onPress }: IMenuItem) => (
     ]}
     onPress={onPress}
     android_ripple={{ color: '#eeeeee' }}>
-    <Text>{name}</Text>
+    <Text style={styles.text}>{name}</Text>
   </Pressable>
 );
 
 const styles = StyleSheet.create({
   block: {
-    paddingHorizontal: 12,
-    paddingVertical: 16,
-    backgroundColor: 'white',
-    borderBottomColor: '#eeeeee',
-    borderBottomWidth: 1,
+    height: 40,
+    paddingHorizontal: 30,
+    display: 'flex',
+    justifyContent: 'center',
   },
   pressed: {
     backgroundColor: '#eeeeee',
+  },
+  text: {
+    fontSize: 16,
   },
 });
 

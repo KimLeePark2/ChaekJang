@@ -31,9 +31,7 @@ const Profile = () => {
       <View style={styles.navigationContainer}>
         <MenuItem name="판매내역" onPress={onSalesHistory} />
         <MenuItem name="관심목록" onPress={onWishList} />
-        <Pressable onPress={onPressSignIn}>
-          <Text>(sign-in page)</Text>
-        </Pressable>
+        <MenuItem name="sign-in page" onPress={onPressSignIn} />
       </View>
     </View>
   );
@@ -66,8 +64,7 @@ const styles = StyleSheet.create({
   },
   navigationContainer: {
     flex: 1,
-    gap: 20,
-    padding: 30,
+    paddingVertical: 25,
     backgroundColor: '#fff',
   },
   navigation: {},
