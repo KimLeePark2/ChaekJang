@@ -1,8 +1,12 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 const SalesHistory = () => {
-  return <View style={styles.block} />;
+  return (
+    <View style={styles.block}>
+      <Text>SalesHistory Page</Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
