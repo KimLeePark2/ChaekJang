@@ -14,6 +14,8 @@ import ChevronLeft from 'src/assets/svgs/chevron-left.svg';
 import { getFormattedCreatedAt } from '@utils/format';
 import Star from '@assets/svgs/star2.svg';
 import More from '@assets/svgs/more-vertical.svg';
+import ActionSheetModal from 'src/components/ActionSheetModal';
+import useBookDetailActions from 'src/hooks/useBookDetailActions'
 
 type PropsType = NativeStackScreenProps<RootStackParamsType, 'BookDetail'>;
 
@@ -28,6 +30,7 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
   const onPressBack = () => {
     navigation.goBack();
   };
+  const {isSelecting, onPressMore, onClose, actions} = useBookDetailActions();
   return (
     <SafeAreaView edges={['bottom']}>
       <View
@@ -43,7 +46,7 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
         <Pressable onPress={onPressBack}>
           <ChevronLeft style={{ color: '#48BA95', padding: 4 }} />
         </Pressable>
-        <Pressable hitSlop={8}>
+        <Pressable hitSlop={8} onPress={onPressMore}>
           <More style={{ color: '#48BA95', padding: 4 }} />
         </Pressable>
       </View>
@@ -84,6 +87,11 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
           </View>
         </View>
       </View>
+      <ActionSheetModal 
+        visible={isSelecting}
+        actions={actions}
+        onClose={onClose}
+      />
     </SafeAreaView>
   );
 };

@@ -7,7 +7,13 @@ import {
     Text,
   } from 'react-native';
 
-  const ActionSheetModal = ({visible, onClose, actions}) => {
+type PropsType = {
+    visible: boolean;
+    onClose(): void;
+    actions: {icon: string, text: string, onPress(): void}[];
+  };
+
+  const ActionSheetModal: React.FC<PropsType> = ({visible, onClose, actions}) => {
     return (
         <Modal
             visible={visible}
@@ -25,7 +31,7 @@ import {
                                 onClose();
                             }}
                             key={action.text}>
-                            <Text style={styles.actionText}>{action.text}</Text>
+                            <Text style={styles.text}>{action.text}</Text>
                         </Pressable>
                     ))}
                 </View>

@@ -1,14 +1,19 @@
 import { useState } from 'react';
-import { ActionSheetIOS, Platform } from 'react-native/types';
+import { ActionSheetIOS, Alert, Platform } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-export default function usePostAction() {
+export default function useBookDetailActions() {
+    const navigation =
+        useNavigation<NativeStackNavigationProp<RootStackParamsType>>();
     const [isSelecting, setIsSelecting] = useState(false);
-
     const edit = () => {
         console.log('TODO: edit');
+        navigation.navigate('NewBook');
     };
     const remove = () => {
         console.log('TODO: remove');
+        Alert.alert('삭제하기');
     };
     const onPressMore = () => {
         if (Platform.OS === 'android') {
