@@ -13,6 +13,7 @@ import { DUMMY } from 'src/components/Book/DUMMY';
 import ChevronLeft from 'src/assets/svgs/chevron-left.svg';
 import { getFormattedCreatedAt } from '@utils/format';
 import Star from '@assets/svgs/star2.svg';
+import More from '@assets/svgs/more-vertical.svg';
 
 type PropsType = NativeStackScreenProps<RootStackParamsType, 'BookDetail'>;
 
@@ -33,10 +34,17 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
         style={{
           height: 40,
           paddingHorizontal: 10,
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
         }}
       >
         <Pressable onPress={onPressBack}>
           <ChevronLeft style={{ color: '#48BA95', padding: 4 }} />
+        </Pressable>
+        <Pressable hitSlop={8}>
+          <More style={{ color: '#48BA95', padding: 4 }} />
         </Pressable>
       </View>
       <View style={styles.container}>
