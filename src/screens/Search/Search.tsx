@@ -71,6 +71,7 @@ const Search = () => {
                       return idx !== index;
                     });
                     setWords(newWords);
+                    _storeData(newWords);
                   }}
                 >
                   <XIcon style={{ color: '#aaa' }} width={14} />
