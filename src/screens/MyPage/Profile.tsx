@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import useToken from '@hooks/useToken';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import MenuItem from '@components/MyPage/MenuItem';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const Profile = () => {
+  const isFocused = useIsFocused();
   const { __clearTokenInAsyncStorage: clearAccessToken } =
     useToken('accessToken');
   const { __clearTokenInAsyncStorage: clearRefreshToken } =
@@ -37,19 +38,13 @@ const Profile = () => {
 
   const getTokenInAsyncStorage = async () => {
     const res = await AsyncStorage.getItem('accessToken');
-    console.log(res);
+    console.log('getTokenInAsyncStorage', res);
     setToken(res);
   };
 
   useEffect(() => {
-    // const getTokenInAsyncStorage = async () => {
-    //   const res = await AsyncStorage.getItem('accessToken');
-    //   console.log(res);
-    //   setToken(res);
-    // };
-
     getTokenInAsyncStorage();
-  }, [reload]);
+  }, [reload, isFocused]);
 
   return (
     <View style={styles.container}>
