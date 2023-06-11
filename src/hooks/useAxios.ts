@@ -6,7 +6,7 @@ import type { requestNewBookApiBody } from 'src/@types/api';
 const BASE_URL = 'http://43.201.203.197:53103/api';
 
 export default function useAxios() {
-  const { token, __getTokenInAsyncStorage } = useToken('accessToken');
+  const { __getTokenInAsyncStorage } = useToken('accessToken');
 
   axios.defaults.baseURL = BASE_URL;
 

@@ -1,40 +1,22 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import useToken from '@hooks/useToken';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import MenuItem from '@components/MyPage/MenuItem';
-import useAxios from '@hooks/useAxios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Profile = () => {
-  const {
-    __getTokenInAsyncStorage,
-    __clearTokenInAsyncStorage: clearAccessToken,
-  } = useToken('accessToken');
+  const { __clearTokenInAsyncStorage: clearAccessToken } =
+    useToken('accessToken');
   const { __clearTokenInAsyncStorage: clearRefreshToken } =
     useToken('refreshToken');
-  const { requestSecureApi } = useAxios();
   const navigation =
     useNavigation<
       NativeStackNavigationProp<MyPageStackParamsType & RootStackParamsType>
     >();
   const [token, setToken] = useState<string | null>(null);
-  const [inputs, setInputs] = useState({
-    nickname: '',
-  });
   const [reload, setReload] = useState(0);
-
-  const getProfile = useCallback(async () => {
-    const { data, status } = await requestSecureApi<{ nickname: string }>(
-      'get',
-      '/v1/users',
-    );
-
-    if (status === 200) {
-      console.log(data);
-      setInputs(data);
-    }
-  }, [requestSecureApi]);
 
   const onPressLogin = () => {
     navigation.navigate('SignIn');
@@ -53,18 +35,21 @@ const Profile = () => {
   const onSalesHistory = () => navigation.navigate('SalesHistory');
   const onWishList = () => navigation.navigate('WishList');
 
+  const getTokenInAsyncStorage = async () => {
+    const res = await AsyncStorage.getItem('accessToken');
+    console.log(res);
+    setToken(res);
+  };
+
   useEffect(() => {
-    const temp = async () => {
-      const accessToken = await __getTokenInAsyncStorage();
-      setToken(accessToken);
+    // const getTokenInAsyncStorage = async () => {
+    //   const res = await AsyncStorage.getItem('accessToken');
+    //   console.log(res);
+    //   setToken(res);
+    // };
 
-      if (accessToken) {
-        getProfile();
-      }
-    };
-
-    temp();
-  }, [__getTokenInAsyncStorage, getProfile, reload]);
+    getTokenInAsyncStorage();
+  }, [reload]);
 
   return (
     <View style={styles.container}>
@@ -88,15 +73,13 @@ const Profile = () => {
           </Pressable>
         </View>
       )}
-      <View style={styles.navigationContainer}>
-        <MenuItem name="판매내역" onPress={onSalesHistory} />
-        <MenuItem name="관심목록" onPress={onWishList} />
-        {token && (
-          <Pressable onPress={onPressLogout}>
-            <Text>로그아웃</Text>
-          </Pressable>
-        )}
-      </View>
+      {token && (
+        <View style={styles.navigationContainer}>
+          <MenuItem name="판매내역" onPress={onSalesHistory} />
+          <MenuItem name="관심목록" onPress={onWishList} />
+          <MenuItem name="로그아웃" onPress={onPressLogout} />
+        </View>
+      )}
     </View>
   );
 };

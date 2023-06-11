@@ -40,7 +40,8 @@ const Login = () => {
       //   navigation.goBack();
       // }
 
-      navigation.navigate('Home');
+      // navigation.navigate('Home');
+      navigation.goBack();
     } catch (err) {
       console.error(err);
     }
