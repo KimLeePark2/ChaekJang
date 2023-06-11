@@ -1,11 +1,15 @@
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import useToken from '@hooks/useToken';
 import useAxios from '@hooks/useAxios';
 import { getProfile, login } from '@react-native-seoul/kakao-login';
-import KAKAO_LOGIN_LOGO_IMAGE from '@assets/images/kakao_login_large_wide.png';
+import KAKAO_LOGIN_BUTTON_IMAGE from '@assets/images/kakao_login_large_wide.png';
 
+// 카카오 로그인 라이브러리
+// https://github.com/crossplatformkorea/react-native-kakao-login
 const Login = () => {
+  const navigation = useNavigation();
   const { __setTokenInAsyncStorage: setAccessToken } = useToken('accessToken');
   const { __setTokenInAsyncStorage: setRefreshToken } =
     useToken('refreshToken');
@@ -20,16 +24,21 @@ const Login = () => {
       setAccessToken(token.accessToken);
       setRefreshToken(token.refreshToken);
 
-      // POST : 프로필 정보
-      const { data, status } = await requestSecureApi('post', '/v1/users', {
-        nickname: profile.nickname,
-        provider: 'KAKAO',
-        providerId: profile.id,
-      });
+      // // POST : 프로필 정보
+      // const { status } = await requestSecureApi('post', '/v1/users', {
+      //   name: '',
+      //   nickname: profile.nickname,
+      //   provider: 'KAKAO',
+      //   providerId: profile.id,
+      //   phone: '',
+      // });
 
-      if (status === 200) {
-        console.log(data);
-      }
+      // if (status === 200) {
+      //   console.log('성공');
+      //   navigation.goBack();
+      // }
+
+      navigation.goBack();
     } catch (err) {
       console.error(err);
     }
@@ -42,7 +51,7 @@ const Login = () => {
         <Text style={styles.title}>책장정리</Text>
       </View>
       <Pressable onPress={onPressLogin} style={styles.loginPressable}>
-        <Image source={KAKAO_LOGIN_LOGO_IMAGE} style={styles.loginImage} />
+        <Image source={KAKAO_LOGIN_BUTTON_IMAGE} style={styles.loginImage} />
       </Pressable>
     </View>
   );

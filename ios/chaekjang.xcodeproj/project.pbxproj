@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* chaekjangTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* chaekjangTests.m */; };
-		076278CA1140CCA0CA286940 /* libPods-chaekjang-chaekjangTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 550481E54D58792D7518C68C /* libPods-chaekjang-chaekjangTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2B5F2B1FF605085A322EDA62 /* libPods-chaekjang.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6BED4025D2D3E8DCFF67B91 /* libPods-chaekjang.a */; };
+		19B2B78185B4FBAC5F390CF8 /* libPods-chaekjang.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E488515BC699F044A2D5B73A /* libPods-chaekjang.a */; };
 		60F270BE2A1CFF66004FBCD8 /* SwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F270BD2A1CFF66004FBCD8 /* SwiftBridge.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		BC146032AE3FECF9D27FB326 /* libPods-chaekjang-chaekjangTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B34F8A4D1F9337A8AF1FA8F6 /* libPods-chaekjang-chaekjangTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,21 +31,21 @@
 		00E356EE1AD99517003FC87E /* chaekjangTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chaekjangTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* chaekjangTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = chaekjangTests.m; sourceTree = "<group>"; };
+		03F46FE27EA43F63393603B1 /* Pods-chaekjang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chaekjang.debug.xcconfig"; path = "Target Support Files/Pods-chaekjang/Pods-chaekjang.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* chaekjang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chaekjang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = chaekjang/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = chaekjang/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = chaekjang/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = chaekjang/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = chaekjang/main.m; sourceTree = "<group>"; };
-		1662627A3FEE02CD59423668 /* Pods-chaekjang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chaekjang.release.xcconfig"; path = "Target Support Files/Pods-chaekjang/Pods-chaekjang.release.xcconfig"; sourceTree = "<group>"; };
-		39F83ACCC4B222D1C453456E /* Pods-chaekjang-chaekjangTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chaekjang-chaekjangTests.debug.xcconfig"; path = "Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests.debug.xcconfig"; sourceTree = "<group>"; };
-		550481E54D58792D7518C68C /* libPods-chaekjang-chaekjangTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-chaekjang-chaekjangTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		16FF61CC7434C09947FE41F1 /* Pods-chaekjang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chaekjang.release.xcconfig"; path = "Target Support Files/Pods-chaekjang/Pods-chaekjang.release.xcconfig"; sourceTree = "<group>"; };
 		60F270BC2A1CFF65004FBCD8 /* chaekjang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "chaekjang-Bridging-Header.h"; sourceTree = "<group>"; };
 		60F270BD2A1CFF66004FBCD8 /* SwiftBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBridge.swift; sourceTree = "<group>"; };
-		6976A2F7B7A3725A57C3E905 /* Pods-chaekjang-chaekjangTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chaekjang-chaekjangTests.release.xcconfig"; path = "Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = chaekjang/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		D6BED4025D2D3E8DCFF67B91 /* libPods-chaekjang.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-chaekjang.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DD2A0DFBF97EB6ADCC578026 /* Pods-chaekjang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chaekjang.debug.xcconfig"; path = "Target Support Files/Pods-chaekjang/Pods-chaekjang.debug.xcconfig"; sourceTree = "<group>"; };
+		AD154657157BAD5A85C4BD2C /* Pods-chaekjang-chaekjangTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chaekjang-chaekjangTests.debug.xcconfig"; path = "Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B34F8A4D1F9337A8AF1FA8F6 /* libPods-chaekjang-chaekjangTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-chaekjang-chaekjangTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3E0B634388AEDF438E26DBE /* Pods-chaekjang-chaekjangTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chaekjang-chaekjangTests.release.xcconfig"; path = "Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests.release.xcconfig"; sourceTree = "<group>"; };
+		E488515BC699F044A2D5B73A /* libPods-chaekjang.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-chaekjang.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -54,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				076278CA1140CCA0CA286940 /* libPods-chaekjang-chaekjangTests.a in Frameworks */,
+				BC146032AE3FECF9D27FB326 /* libPods-chaekjang-chaekjangTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B5F2B1FF605085A322EDA62 /* libPods-chaekjang.a in Frameworks */,
+				19B2B78185B4FBAC5F390CF8 /* libPods-chaekjang.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,8 +105,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				D6BED4025D2D3E8DCFF67B91 /* libPods-chaekjang.a */,
-				550481E54D58792D7518C68C /* libPods-chaekjang-chaekjangTests.a */,
+				E488515BC699F044A2D5B73A /* libPods-chaekjang.a */,
+				B34F8A4D1F9337A8AF1FA8F6 /* libPods-chaekjang-chaekjangTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -145,10 +145,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DD2A0DFBF97EB6ADCC578026 /* Pods-chaekjang.debug.xcconfig */,
-				1662627A3FEE02CD59423668 /* Pods-chaekjang.release.xcconfig */,
-				39F83ACCC4B222D1C453456E /* Pods-chaekjang-chaekjangTests.debug.xcconfig */,
-				6976A2F7B7A3725A57C3E905 /* Pods-chaekjang-chaekjangTests.release.xcconfig */,
+				03F46FE27EA43F63393603B1 /* Pods-chaekjang.debug.xcconfig */,
+				16FF61CC7434C09947FE41F1 /* Pods-chaekjang.release.xcconfig */,
+				AD154657157BAD5A85C4BD2C /* Pods-chaekjang-chaekjangTests.debug.xcconfig */,
+				C3E0B634388AEDF438E26DBE /* Pods-chaekjang-chaekjangTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -160,12 +160,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "chaekjangTests" */;
 			buildPhases = (
-				61F354D0113D838870341403 /* [CP] Check Pods Manifest.lock */,
+				92D393F9546EDCEA8C1D1A2E /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C1B0CBA0B07488FAC12D6F6C /* [CP] Embed Pods Frameworks */,
-				87CDB409565C38079740F396 /* [CP] Copy Pods Resources */,
+				39833F101979926D51A795A7 /* [CP] Embed Pods Frameworks */,
+				8F80A6F363F2063DCF8F8EFE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -181,14 +181,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "chaekjang" */;
 			buildPhases = (
-				86705AC20ECFCA7E92058A55 /* [CP] Check Pods Manifest.lock */,
+				9A7B13305F80F431079380E1 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				659742F9721D61983223E16B /* [CP] Embed Pods Frameworks */,
-				6A1072A549431CECCFCB19FA /* [CP] Copy Pods Resources */,
+				7169914E61E5703BC56E226B /* [CP] Embed Pods Frameworks */,
+				0682C66E694FAAB061FABBFB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -271,7 +271,75 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		61F354D0113D838870341403 /* [CP] Check Pods Manifest.lock */ = {
+		0682C66E694FAAB061FABBFB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-chaekjang/Pods-chaekjang-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-chaekjang/Pods-chaekjang-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-chaekjang/Pods-chaekjang-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		39833F101979926D51A795A7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7169914E61E5703BC56E226B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-chaekjang/Pods-chaekjang-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-chaekjang/Pods-chaekjang-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-chaekjang/Pods-chaekjang-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8F80A6F363F2063DCF8F8EFE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		92D393F9546EDCEA8C1D1A2E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -293,41 +361,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		659742F9721D61983223E16B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-chaekjang/Pods-chaekjang-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-chaekjang/Pods-chaekjang-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-chaekjang/Pods-chaekjang-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6A1072A549431CECCFCB19FA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-chaekjang/Pods-chaekjang-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-chaekjang/Pods-chaekjang-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-chaekjang/Pods-chaekjang-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		86705AC20ECFCA7E92058A55 /* [CP] Check Pods Manifest.lock */ = {
+		9A7B13305F80F431079380E1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -347,40 +381,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		87CDB409565C38079740F396 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C1B0CBA0B07488FAC12D6F6C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-chaekjang-chaekjangTests/Pods-chaekjang-chaekjangTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -436,7 +436,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39F83ACCC4B222D1C453456E /* Pods-chaekjang-chaekjangTests.debug.xcconfig */;
+			baseConfigurationReference = AD154657157BAD5A85C4BD2C /* Pods-chaekjang-chaekjangTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -464,7 +464,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6976A2F7B7A3725A57C3E905 /* Pods-chaekjang-chaekjangTests.release.xcconfig */;
+			baseConfigurationReference = C3E0B634388AEDF438E26DBE /* Pods-chaekjang-chaekjangTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -489,7 +489,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD2A0DFBF97EB6ADCC578026 /* Pods-chaekjang.debug.xcconfig */;
+			baseConfigurationReference = 03F46FE27EA43F63393603B1 /* Pods-chaekjang.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -521,7 +521,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1662627A3FEE02CD59423668 /* Pods-chaekjang.release.xcconfig */;
+			baseConfigurationReference = 16FF61CC7434C09947FE41F1 /* Pods-chaekjang.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

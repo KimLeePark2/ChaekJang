@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { KakaoOAuthToken } from '@react-native-seoul/kakao-login';
 
@@ -7,19 +7,15 @@ type TokenTypes = Pick<KakaoOAuthToken, 'accessToken' | 'refreshToken'>;
 export default function useToken<K extends keyof TokenTypes>(key: K) {
   const [token, setToken] = useState<string | null>(null);
 
-  const __getTokenInAsyncStorage = useCallback(async () => {
-    try {
-      const getToken = await AsyncStorage.getItem(key);
-      setToken(getToken);
-    } catch (err) {
-      console.error('getToken err', err);
-    }
-  }, [key]);
+  const __getTokenInAsyncStorage = async () => {
+    const temp = await AsyncStorage.getItem(key).then(res => res);
+    return temp;
+  };
 
   const __setTokenInAsyncStorage = useCallback(
     async (value: string) => {
       try {
-        await AsyncStorage.setItem(key, value);
+        await AsyncStorage.setItem(key, JSON.stringify(value));
         setToken(value);
       } catch (err) {
         console.error('__setTokenInAsyncStorage err', err);
@@ -37,12 +33,9 @@ export default function useToken<K extends keyof TokenTypes>(key: K) {
     }
   }, [key]);
 
-  useEffect(() => {
-    __getTokenInAsyncStorage();
-  }, [__getTokenInAsyncStorage]);
-
   return {
     token,
+    __getTokenInAsyncStorage,
     __setTokenInAsyncStorage,
     __clearTokenInAsyncStorage,
   };

@@ -6,7 +6,7 @@ import type { requestNewBookApiBody } from 'src/@types/api';
 const BASE_URL = 'http://43.201.203.197:53103/api';
 
 export default function useAxios() {
-  const { token } = useToken('accessToken');
+  const { token, __getTokenInAsyncStorage } = useToken('accessToken');
 
   axios.defaults.baseURL = BASE_URL;
 
@@ -46,12 +46,16 @@ export default function useAxios() {
       body?: object,
       header?: object,
     ) => {
+      const accessToken = await __getTokenInAsyncStorage();
+
       return requestApi<T>(method, url, body, {
-        Authorization: `Bearer ${token}`,
-        ...header,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          ...header,
+        },
       });
     },
-    [requestApi, token],
+    [__getTokenInAsyncStorage, requestApi],
   );
 
   const requestNewBookApi = useCallback(
