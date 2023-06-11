@@ -8,6 +8,7 @@ import {
   Platform,
   Image,
 } from 'react-native';
+import Camera from '@assets/svgs/camera.svg';
 import { type Asset, launchImageLibrary } from 'react-native-image-picker';
 
 type PropsType = {
@@ -50,14 +51,14 @@ const BookEditor: React.FC<PropsType> = ({
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.photoContainer}>
         <Pressable onPress={onPressNewPhoto} style={styles.photo}>
-          <Text>+</Text>
+          <Camera stroke={'#B6B6B6'} />
         </Pressable>
         <Image
           source={{ uri: photo.length === 0 ? undefined : photo[0].uri }}
-          style={styles.photo}
+          style={[styles.photo, photo.length === 0 && styles.hiddenPhoto]}
         />
       </View>
       <View style={styles.separator} />
@@ -98,6 +99,9 @@ const BookEditor: React.FC<PropsType> = ({
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   photoContainer: {
     height: 80,
     flexDirection: 'row',
@@ -114,6 +118,9 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#B6B6B6',
     borderRadius: 10,
+  },
+  hiddenPhoto: {
+    display: 'none',
   },
   title: {
     height: 40,
@@ -132,7 +139,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   description: {
-    height: 300,
+    flex: 1,
+    marginBottom: 30,
   },
   separator: {
     backgroundColor: '#E0E0E0',

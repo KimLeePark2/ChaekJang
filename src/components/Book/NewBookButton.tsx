@@ -1,13 +1,25 @@
 import useToken from '@hooks/useToken';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React from 'react';
-import { View, StyleSheet, Pressable, Platform, Alert } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import {
+  View,
+  StyleSheet,
+  Pressable,
+  Platform,
+  Alert,
+  Animated,
+} from 'react-native';
 import Plus from 'src/assets/svgs/plus.svg';
 
-const NewBookButton = () => {
+type PropsType = {
+  hidden: boolean;
+};
+
+const NewBookButton: React.FC<PropsType> = ({ hidden }) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamsType>>();
+  const animation = useRef(new Animated.Value(0)).current;
   const { token: accessToken } = useToken('accessToken');
   const { token: refreshToken } = useToken('refreshToken');
 
@@ -20,27 +32,53 @@ const NewBookButton = () => {
     navigation.navigate('SignIn');
   };
 
+  useEffect(() => {
+    Animated.spring(animation, {
+      toValue: hidden ? 1 : 0,
+      useNativeDriver: true,
+      tension: 45,
+      friction: 5,
+    }).start();
+  }, [animation, hidden]);
+
   return (
-    <View style={styles.container}>
-      <Pressable
-        onPress={onPressPlus}
-        style={({ pressed }) => [
-          styles.button,
-          Platform.OS === 'ios' && {
-            opacity: pressed ? 0.6 : 1,
+    <Animated.View
+      style={{
+        transform: [
+          {
+            translateY: animation.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 88],
+            }),
           },
-        ]}
-      >
-        <Plus style={styles.plus} />
-      </Pressable>
-    </View>
+        ],
+        opacity: animation.interpolate({
+          inputRange: [0, 1],
+          outputRange: [1, 0],
+        }),
+      }}
+    >
+      <View style={styles.container}>
+        <Pressable
+          onPress={onPressPlus}
+          style={({ pressed }) => [
+            styles.button,
+            Platform.OS === 'ios' && {
+              opacity: pressed ? 0.6 : 1,
+            },
+          ]}
+        >
+          <Plus style={styles.plus} />
+        </Pressable>
+      </View>
+    </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: 46,
+    bottom: 16,
     right: 16,
     width: 56,
     height: 56,

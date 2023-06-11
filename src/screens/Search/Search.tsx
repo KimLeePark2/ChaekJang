@@ -1,8 +1,6 @@
 import BookList from '@components/Book/BookList';
 import MainHeader from '@components/Header/MainHeader';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { startTransition, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -16,10 +14,6 @@ import NotFound from '@screens/Search/NotFound';
 
 const SEARCH_WORDS = ['갤럭시', '아이폰', '맥북'];
 const Search = () => {
-  const navigation =
-    useNavigation<
-      NativeStackNavigationProp<SearchStackParamsType & RootStackParamsType>
-    >();
   const [inputValue, setInputValue] = React.useState('');
   const [searchValue, setSearchValue] = React.useState('');
   const [searchWords, setSearchWords] = React.useState(SEARCH_WORDS);
@@ -93,7 +87,7 @@ const Search = () => {
             marginTop: 10,
           }}
         >
-          {searchWords.map((item, index) => {
+          {searchWords?.map((item, index) => {
             return (
               <View
                 key={index}
@@ -124,7 +118,7 @@ const Search = () => {
                     setSearchWords(newWords);
                   }}
                 >
-                  <XIcon style={{ color: '#48BA95' }} />
+                  <XIcon style={{ color: '#acacac' }} width={20} />
                 </TouchableOpacity>
               </View>
             );
@@ -180,11 +174,12 @@ const Search = () => {
               >
                 <XIcon
                   style={{
-                    color: '#48BA95',
+                    color: '#acacac',
                     right: 10,
                     bottom: -12,
                     position: 'absolute',
                   }}
+                  width={20}
                 />
               </TouchableOpacity>
             )}
