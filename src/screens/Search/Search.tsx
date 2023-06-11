@@ -27,8 +27,8 @@ const Search = () => {
       setBookListData(prev => {
         return prev.filter(
           item =>
-            item.title.replace(/ /g, '').includes(replaceSearchValue) ||
-            item.writer.replace(/ /g, '').includes(replaceSearchValue),
+            item?.title.replace(/ /g, '').includes(replaceSearchValue) ||
+            item?.writer.replace(/ /g, '').includes(replaceSearchValue),
         );
       });
     } else {
