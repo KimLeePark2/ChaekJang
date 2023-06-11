@@ -36,22 +36,23 @@ const NewBook: React.FC<PropsType> = ({ navigation }) => {
   };
 
   const onPressSubmit = async () => {
-    try {
-      const { status } = await requestNewBookApi('/v1/products', {
-        userId: '1',
-        photo,
-        title,
-        price,
-        description,
-      });
-      if (status === 200) {
-        navigation.goBack();
-        return;
-      }
-      Alert.alert('재시도 바랍니다.');
-    } catch (error) {
-      console.log(error);
-    }
+    navigation.goBack();
+    // try {
+    //   const { status } = await requestNewBookApi('/v1/products', {
+    //     userId: '1',
+    //     photo,
+    //     title,
+    //     price,
+    //     description,
+    //   });
+    //   if (status === 200) {
+    //     navigation.goBack();
+    //     return;
+    //   }
+    //   Alert.alert('재시도 바랍니다.');
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (

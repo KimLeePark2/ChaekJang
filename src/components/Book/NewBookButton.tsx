@@ -20,10 +20,13 @@ const NewBookButton: React.FC<PropsType> = ({ hidden }) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamsType>>();
   const animation = useRef(new Animated.Value(0)).current;
-  const { token: accessToken } = useToken('accessToken');
-  const { token: refreshToken } = useToken('refreshToken');
+  const { __getTokenInAsyncStorage: getAccessToken } = useToken('accessToken');
+  const { __getTokenInAsyncStorage: getRefreshToken } =
+    useToken('refreshToken');
 
-  const onPressPlus = () => {
+  const onPressPlus = async () => {
+    const accessToken = await getAccessToken();
+    const refreshToken = await getRefreshToken();
     if (accessToken && refreshToken) {
       navigation.navigate('NewBook');
       return;

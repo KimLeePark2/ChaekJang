@@ -22,6 +22,7 @@ const Profile = () => {
   const [inputs, setInputs] = useState({
     nickname: '',
   });
+  const [reload, setReload] = useState(0);
 
   const getProfile = useCallback(async () => {
     const { data, status } = await requestSecureApi<{ nickname: string }>(
@@ -46,6 +47,7 @@ const Profile = () => {
     } catch (err) {
       console.error('로그아웃 실패');
     }
+    setReload(prev => prev + 1);
   };
 
   const onSalesHistory = () => navigation.navigate('SalesHistory');
@@ -62,7 +64,7 @@ const Profile = () => {
     };
 
     temp();
-  }, [__getTokenInAsyncStorage, getProfile]);
+  }, [__getTokenInAsyncStorage, getProfile, reload]);
 
   return (
     <View style={styles.container}>

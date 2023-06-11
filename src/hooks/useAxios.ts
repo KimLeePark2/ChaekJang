@@ -50,6 +50,7 @@ export default function useAxios() {
 
       return requestApi<T>(method, url, body, {
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
           ...header,
         },
@@ -60,6 +61,8 @@ export default function useAxios() {
 
   const requestNewBookApi = useCallback(
     async <T extends {}>(url: string, body: requestNewBookApiBody) => {
+      const accessToken = await __getTokenInAsyncStorage();
+
       const formData = new FormData();
       formData.append('thumbnailImage', {
         uri: body.photo[0].uri,
@@ -75,7 +78,7 @@ export default function useAxios() {
         .post(url, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         })
         .then(res => ({
@@ -90,7 +93,7 @@ export default function useAxios() {
           };
         });
     },
-    [token],
+    [__getTokenInAsyncStorage],
   );
 
   return {

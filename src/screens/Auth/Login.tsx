@@ -5,11 +5,13 @@ import useToken from '@hooks/useToken';
 import useAxios from '@hooks/useAxios';
 import { getProfile, login } from '@react-native-seoul/kakao-login';
 import KAKAO_LOGIN_BUTTON_IMAGE from '@assets/images/kakao_login_large_wide.png';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 // 카카오 로그인 라이브러리
 // https://github.com/crossplatformkorea/react-native-kakao-login
 const Login = () => {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<HomeStackParamsType>>();
   const { __setTokenInAsyncStorage: setAccessToken } = useToken('accessToken');
   const { __setTokenInAsyncStorage: setRefreshToken } =
     useToken('refreshToken');
@@ -38,7 +40,7 @@ const Login = () => {
       //   navigation.goBack();
       // }
 
-      navigation.goBack();
+      navigation.navigate('Home');
     } catch (err) {
       console.error(err);
     }
