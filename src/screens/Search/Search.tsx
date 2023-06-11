@@ -1,5 +1,6 @@
 import BookList from '@components/Book/BookList';
 import MainHeader from '@components/Header/MainHeader';
+import AsyncStorage from '@react-native-community/async-storage';
 import React, { useState } from 'react';
 import {
   View,
@@ -36,8 +37,33 @@ const Search = () => {
     }
   }, [searchValue]);
 
+  React.useEffect(() => {
+    _retrieveData().then();
+  }, []);
+
   const resetSearchWords = () => {
     setSearchWords([]);
+  };
+
+  const _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('searchWords');
+      if (value !== null) {
+        // We have data!!
+        setSearchWords(JSON.parse(value));
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
+
+  const _storeData = async (words: string[]) => {
+    try {
+      await AsyncStorage.setItem('searchWords', JSON.stringify(words));
+    } catch (error) {
+      // Error saving data
+      console.log(error, 'error hi');
+    }
   };
 
   React.useEffect(() => {
@@ -52,7 +78,9 @@ const Search = () => {
 
     if (!searchWords.some(item => item === inputValue)) {
       setSearchWords(prev => {
-        return [inputValue.trim(), ...prev];
+        const newSearchWords = [inputValue.trim(), ...prev];
+        _storeData(newSearchWords).then();
+        return newSearchWords;
       });
     }
     setSearchValue(replaceInputValue);
@@ -115,6 +143,7 @@ const Search = () => {
                     const newWords = searchWords.filter((_, idx) => {
                       return idx !== index;
                     });
+                    _storeData(newWords).then();
                     setSearchWords(newWords);
                   }}
                 >
