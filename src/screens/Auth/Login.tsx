@@ -15,33 +15,47 @@ const Login = () => {
   const { __setTokenInAsyncStorage: setAccessToken } = useToken('accessToken');
   const { __setTokenInAsyncStorage: setRefreshToken } =
     useToken('refreshToken');
-  const { requestSecureApi } = useAxios();
+  const { requestApi } = useAxios();
 
   const onPressLogin = async () => {
     try {
-      const token = await login();
+      // 카카오 로그인 요청
+      await login();
       const profile = await getProfile();
 
-      // AsyncStorage token 저장
-      setAccessToken(token.accessToken);
-      setRefreshToken(token.refreshToken);
+      // 카카오 로그인 성공 시 반환 받은 id를 이용하여 서버에 요청
+      const { data: loginData, status: loginStatus } = await requestApi<{
+        [key in 'accessToken' | 'refreshToken']: string;
+      }>('post', '/v1/auths/login', {
+        provider: 'KAKAO',
+        providerId: profile.id,
+      });
 
-      // // POST : 프로필 정보
-      // const { status } = await requestSecureApi('post', '/v1/users', {
-      //   name: '',
-      //   nickname: profile.nickname,
-      //   provider: 'KAKAO',
-      //   providerId: profile.id,
-      //   phone: '',
-      // });
+      if (loginStatus === 200) {
+        // 등록된 유저인 경우
+        setAccessToken(loginData.accessToken);
+        setRefreshToken(loginData.refreshToken);
+        navigation.goBack();
+      } else {
+        // 등록되지 않은 유저인 경우 유저 POST 요청
+        const { data, status } = await requestApi<{
+          [key in 'accessToken' | 'refreshToken']: string;
+        }>('post', '/v1/users', {
+          name: '',
+          nickname: profile.nickname,
+          provider: 'KAKAO',
+          providerId: profile.id,
+          phone: '',
+        });
 
-      // if (status === 200) {
-      //   console.log('성공');
-      //   navigation.goBack();
-      // }
-
-      // navigation.navigate('Home');
-      navigation.goBack();
+        if (status === 201) {
+          setAccessToken(data.accessToken);
+          setRefreshToken(data.refreshToken);
+          navigation.goBack();
+        } else {
+          console.error('[Axios Error]', status);
+        }
+      }
     } catch (err) {
       console.error(err);
     }
