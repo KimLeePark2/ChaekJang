@@ -5,6 +5,8 @@ import useToken from '@hooks/useToken';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import MenuItem from '@components/MyPage/MenuItem';
 import AsyncStorage from '@react-native-community/async-storage';
+import { tokenAtom } from 'src/@store/user';
+import { useAtom } from 'jotai';
 
 const Profile = () => {
   const isFocused = useIsFocused();
@@ -16,7 +18,8 @@ const Profile = () => {
     useNavigation<
       NativeStackNavigationProp<MyPageStackParamsType & RootStackParamsType>
     >();
-  const [token, setToken] = useState<string | null>(null);
+
+  const [token, setToken] = useAtom(tokenAtom);
   const [reload, setReload] = useState(0);
 
   const onPressLogin = () => {
