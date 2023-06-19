@@ -1,20 +1,17 @@
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import useToken from '@hooks/useToken';
 import useAxios from '@hooks/useAxios';
 import { getProfile, login } from '@react-native-seoul/kakao-login';
 import KAKAO_LOGIN_BUTTON_IMAGE from '@assets/images/kakao_login_large_wide.png';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import tokenStorage from '@storages/tokenStorage';
 
 // 카카오 로그인 라이브러리
 // https://github.com/crossplatformkorea/react-native-kakao-login
 const Login = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<HomeStackParamsType>>();
-  const { __setTokenInAsyncStorage: setAccessToken } = useToken('accessToken');
-  const { __setTokenInAsyncStorage: setRefreshToken } =
-    useToken('refreshToken');
   const { requestApi } = useAxios();
 
   const onPressLogin = async () => {
@@ -26,15 +23,15 @@ const Login = () => {
       // 카카오 로그인 성공 시 반환 받은 id를 이용하여 서버에 요청
       const { data: loginData, status: loginStatus } = await requestApi<{
         [key in 'accessToken' | 'refreshToken']: string;
-      }>('post', '/v1/auths/login', {
+      }>('post', '/auths/login', {
         provider: 'KAKAO',
         providerId: profile.id,
       });
 
       if (loginStatus === 200) {
-        // 등록된 유저인 경우
-        setAccessToken(loginData.accessToken);
-        setRefreshToken(loginData.refreshToken);
+        // 등록된 유저인 경우 토큰 저장 후 이전 페이지
+        tokenStorage.set('accessToken', loginData.accessToken);
+        tokenStorage.set('refreshToken', loginData.refreshToken);
         navigation.goBack();
       } else {
         // 등록되지 않은 유저인 경우 유저 POST 요청
@@ -47,13 +44,12 @@ const Login = () => {
           providerId: profile.id,
           phone: '',
         });
-
         if (status === 201) {
-          setAccessToken(data.accessToken);
-          setRefreshToken(data.refreshToken);
+          tokenStorage.set('accessToken', data.accessToken);
+          tokenStorage.set('refreshToken', data.refreshToken);
           navigation.goBack();
         } else {
-          console.error('[Axios Error]', status);
+          console.error('[POST] /v1/users', status);
         }
       }
     } catch (err) {

@@ -10,6 +10,7 @@
       "@components/*": ["./src/components/*"],
       "@navigations/*": ["./src/navigations/*"],
       "@screens/*": ["./src/screens/*"],
+      "@storages/*": ["./src/storages/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@store/*": ["./src/store/*"],
       "@styles/*": ["./src/styles/*"],
