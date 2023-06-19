@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "704708811466",
+    "project_id": "chackjang-91894",
+    "storage_bucket": "chackjang-91894.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704708811466:android:74c147152b0cc7d400f233",
+        "android_client_info": {
+          "package_name": "com.chaekjang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "704708811466-n52bln0oh88ksk98hq8niaknv6b5jvb5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chaekjang",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "704708811466-2nhrbl8f6l87buin37iqpvca0ou4c74k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA18opVfLyZounZXD3HfvIfqpCAVwFIfoo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "704708811466-2nhrbl8f6l87buin37iqpvca0ou4c74k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "704708811466-76qhnr4o6tpov3do4vithdoufote7d15.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.chackjang"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
