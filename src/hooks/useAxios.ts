@@ -1,13 +1,11 @@
 import { useCallback } from 'react';
 import axios from 'axios';
-import useToken from './useToken';
 import type { requestNewBookApiBody } from 'src/@types/api';
+import tokenStorage from '@storages/tokenStorage';
 
 const BASE_URL = 'http://43.201.203.197:53103/api';
 
 export default function useAxios() {
-  const { __getTokenInAsyncStorage } = useToken('accessToken');
-
   axios.defaults.baseURL = BASE_URL;
 
   const requestApi = useCallback(
@@ -46,7 +44,9 @@ export default function useAxios() {
       body?: object,
       header?: object,
     ) => {
-      const accessToken = await __getTokenInAsyncStorage();
+      const accessToken = await tokenStorage
+        .get('accessToken')
+        .then(res => res);
 
       return requestApi<T>(method, url, body, {
         headers: {
@@ -56,12 +56,14 @@ export default function useAxios() {
         },
       });
     },
-    [__getTokenInAsyncStorage, requestApi],
+    [requestApi],
   );
 
   const requestNewBookApi = useCallback(
     async <T extends {}>(url: string, body: requestNewBookApiBody) => {
-      const accessToken = await __getTokenInAsyncStorage();
+      const accessToken = await tokenStorage
+        .get('accessToken')
+        .then(res => res);
 
       const formData = new FormData();
       formData.append('thumbnailImage', {
@@ -93,7 +95,7 @@ export default function useAxios() {
           };
         });
     },
-    [__getTokenInAsyncStorage],
+    [],
   );
 
   return {

@@ -7,10 +7,25 @@ type TokenTypes = Pick<KakaoOAuthToken, 'accessToken' | 'refreshToken'>;
 export default function useToken<K extends keyof TokenTypes>(key: K) {
   const [token, setToken] = useState<string | null>(null);
 
-  const __getTokenInAsyncStorage = async () => {
-    const temp = await AsyncStorage.getItem(key).then(res => res);
-    return temp;
-  };
+  const __getTokenInAsyncStorage = useCallback(async () => {
+    console.log('__getTokenInAsyncStorage 호출');
+    try {
+      const getToken = await AsyncStorage.getItem(key);
+      console.log(getToken);
+      setToken(getToken);
+    } catch (err) {
+      console.error('getToken err', err);
+    }
+  }, [key]);
+
+  const temp = useCallback(async () => {
+    try {
+      const getToken = await AsyncStorage.getItem(key);
+      return getToken;
+    } catch (err) {
+      return null;
+    }
+  }, [key]);
 
   const __setTokenInAsyncStorage = useCallback(
     async (value: string) => {
@@ -36,6 +51,7 @@ export default function useToken<K extends keyof TokenTypes>(key: K) {
   return {
     token,
     __getTokenInAsyncStorage,
+    temp,
     __setTokenInAsyncStorage,
     __clearTokenInAsyncStorage,
   };

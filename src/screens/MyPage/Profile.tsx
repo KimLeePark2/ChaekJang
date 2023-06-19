@@ -1,53 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, Pressable } from 'react-native';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
-import useToken from '@hooks/useToken';
+import { StyleSheet, View, Text, Pressable, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import MenuItem from '@components/MyPage/MenuItem';
-import AsyncStorage from '@react-native-community/async-storage';
-import { tokenAtom } from 'src/@store/user';
-import { useAtom } from 'jotai';
+import tokenStorage from '@storages/tokenStorage';
 
 const Profile = () => {
-  const isFocused = useIsFocused();
-  const { __clearTokenInAsyncStorage: clearAccessToken } =
-    useToken('accessToken');
-  const { __clearTokenInAsyncStorage: clearRefreshToken } =
-    useToken('refreshToken');
   const navigation =
     useNavigation<
       NativeStackNavigationProp<MyPageStackParamsType & RootStackParamsType>
     >();
-
-  const [token, setToken] = useAtom(tokenAtom);
+  const [token, setToken] = useState<string | null>(null);
   const [reload, setReload] = useState(0);
 
-  const onPressLogin = () => {
-    navigation.navigate('SignIn');
-  };
-
+  // 로그아웃
   const onPressLogout = async () => {
-    try {
-      clearAccessToken();
-      clearRefreshToken();
-    } catch (err) {
-      console.error('로그아웃 실패');
-    }
-    setReload(prev => prev + 1);
-  };
-
-  const onSalesHistory = () => navigation.navigate('SalesHistory');
-  const onWishList = () => navigation.navigate('WishList');
-
-  const getTokenInAsyncStorage = async () => {
-    const res = await AsyncStorage.getItem('accessToken');
-    console.log('getTokenInAsyncStorage', res);
-    setToken(res);
+    Alert.alert('로그아웃', '정말 로그아웃 하시나요?', [
+      { text: '닫기', onPress: () => {}, style: 'cancel' },
+      {
+        text: '로그아웃',
+        onPress: () => {
+          tokenStorage.set('accessToken', null);
+          tokenStorage.set('refreshToken', null);
+          setReload(prev => prev + 1);
+        },
+        style: 'destructive',
+      },
+    ]);
   };
 
   useEffect(() => {
-    getTokenInAsyncStorage();
-  }, [reload, isFocused]);
+    tokenStorage.get('accessToken').then(setToken);
+  }, [reload]);
 
   return (
     <View style={styles.container}>
@@ -66,15 +50,21 @@ const Profile = () => {
           <View style={styles.nicknameContainer}>
             <Text style={styles.subtitle}>로그인 후 이용해 주세요.</Text>
           </View>
-          <Pressable onPress={onPressLogin}>
+          <Pressable onPress={() => navigation.navigate('SignIn')}>
             <Text>로그인 하기</Text>
           </Pressable>
         </View>
       )}
       {token && (
         <View style={styles.navigationContainer}>
-          <MenuItem name="판매내역" onPress={onSalesHistory} />
-          <MenuItem name="관심목록" onPress={onWishList} />
+          <MenuItem
+            name="판매내역"
+            onPress={() => navigation.navigate('SalesHistory')}
+          />
+          <MenuItem
+            name="관심목록"
+            onPress={() => navigation.navigate('WishList')}
+          />
           <MenuItem name="로그아웃" onPress={onPressLogout} />
         </View>
       )}
