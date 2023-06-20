@@ -37,7 +37,7 @@ const Login = () => {
         // 등록되지 않은 유저인 경우 유저 POST 요청
         const { data, status } = await requestApi<{
           [key in 'accessToken' | 'refreshToken']: string;
-        }>('post', '/v1/users', {
+        }>('post', '/auths/join', {
           name: '',
           nickname: profile.nickname,
           provider: 'KAKAO',

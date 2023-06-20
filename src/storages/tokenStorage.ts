@@ -6,7 +6,7 @@ const tokenStorage = {
   async get(key: TokenTypes) {
     try {
       const getToken = await AsyncStorage.getItem(key);
-      return getToken;
+      return getToken ? JSON.parse(getToken) : null;
     } catch (e) {
       throw new Error('Failed to get token');
     }

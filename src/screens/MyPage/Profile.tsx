@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Pressable, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import MenuItem from '@components/MyPage/MenuItem';
 import tokenStorage from '@storages/tokenStorage';
 
 const Profile = () => {
+  const isFocused = useIsFocused();
   const navigation =
     useNavigation<
       NativeStackNavigationProp<MyPageStackParamsType & RootStackParamsType>
     >();
   const [token, setToken] = useState<string | null>(null);
-  const [reload, setReload] = useState(0);
 
   // 로그아웃
   const onPressLogout = async () => {
     Alert.alert('로그아웃', '정말 로그아웃 하시나요?', [
-      { text: '닫기', onPress: () => {}, style: 'cancel' },
+      { text: '취소', onPress: () => {}, style: 'cancel' },
       {
         text: '로그아웃',
         onPress: () => {
           tokenStorage.set('accessToken', null);
           tokenStorage.set('refreshToken', null);
-          setReload(prev => prev + 1);
+          setToken(null);
         },
         style: 'destructive',
       },
@@ -31,11 +31,15 @@ const Profile = () => {
 
   useEffect(() => {
     tokenStorage.get('accessToken').then(setToken);
-  }, [reload]);
+  }, [isFocused]);
+
+  useEffect(() => {
+    console.log(token);
+  }, [token]);
 
   return (
     <View style={styles.container}>
-      {token ? (
+      {token !== null ? (
         <View style={styles.profileContainer}>
           <View style={styles.nicknameContainer}>
             <Text style={styles.subtitle}>안녕하세요!</Text>
