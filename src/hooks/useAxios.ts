@@ -48,13 +48,9 @@ export default function useAxios() {
         .get('accessToken')
         .then(res => res);
 
-      return requestApi<T>(method, url, body, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-          ...header,
-        },
-      });
+      axios.defaults.headers.Authorization = `Bearer ${accessToken}`;
+
+      return requestApi<T>(method, url, body, { header });
     },
     [requestApi],
   );

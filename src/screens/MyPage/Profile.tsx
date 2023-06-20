@@ -4,14 +4,17 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import MenuItem from '@components/MyPage/MenuItem';
 import tokenStorage from '@storages/tokenStorage';
+import useAxios from '@hooks/useAxios';
 
 const Profile = () => {
   const isFocused = useIsFocused();
+  const { requestSecureApi } = useAxios();
+  const [token, setToken] = useState<string | null>(null);
+  const [nickname, setNickname] = useState('');
   const navigation =
     useNavigation<
       NativeStackNavigationProp<MyPageStackParamsType & RootStackParamsType>
     >();
-  const [token, setToken] = useState<string | null>(null);
 
   // 로그아웃
   const onPressLogout = async () => {
@@ -29,13 +32,26 @@ const Profile = () => {
     ]);
   };
 
+  // 내 정보 조회
+  const getUserProfile = async () => {
+    const { data, status } = await requestSecureApi<{ nickname: string }>(
+      'get',
+      '/auths/my',
+    );
+    if (status === 200) {
+      setNickname(data.nickname);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      getUserProfile();
+    }
+  }, [token]);
+
   useEffect(() => {
     tokenStorage.get('accessToken').then(setToken);
   }, [isFocused]);
-
-  useEffect(() => {
-    console.log(token);
-  }, [token]);
 
   return (
     <View style={styles.container}>
@@ -43,7 +59,7 @@ const Profile = () => {
         <View style={styles.profileContainer}>
           <View style={styles.nicknameContainer}>
             <Text style={styles.subtitle}>안녕하세요!</Text>
-            <Text style={styles.nickname}>닉네임님</Text>
+            <Text style={styles.nickname}>{nickname}님</Text>
           </View>
           <Pressable>
             <Text>내 프로필 보기</Text>
