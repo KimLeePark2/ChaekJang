@@ -8,11 +8,10 @@ export default function useToken<K extends keyof TokenTypes>(key: K) {
   const [token, setToken] = useState<string | null>(null);
 
   const __getTokenInAsyncStorage = useCallback(async () => {
-    console.log('__getTokenInAsyncStorage 호출');
     try {
       const getToken = await AsyncStorage.getItem(key);
-      console.log(getToken);
       setToken(getToken);
+      return getToken;
     } catch (err) {
       console.error('getToken err', err);
     }
