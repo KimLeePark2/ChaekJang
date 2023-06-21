@@ -13,12 +13,12 @@ import type { Asset } from 'react-native-image-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ChevronLeft from 'src/assets/svgs/chevron-left.svg';
 import Check from 'src/assets/svgs/check.svg';
-import useAxios from '@hooks/useAxios';
+import useBookAPI from '@hooks/useBookAPI';
 
 type PropsType = NativeStackScreenProps<RootStackParamsType, 'NewBook'>;
 
 const NewBook: React.FC<PropsType> = ({ navigation }) => {
-  const { requestNewBookApi } = useAxios();
+  const { createNewBook } = useBookAPI();
   const [photo, setPhoto] = useState<Asset[]>([]);
   const [title, setTitle] = useState<string>('');
   const [price, setPrice] = useState<number>(0);
@@ -37,7 +37,7 @@ const NewBook: React.FC<PropsType> = ({ navigation }) => {
 
   const onPressSubmit = async () => {
     try {
-      const { status } = await requestNewBookApi('/v1/products', {
+      const { status } = await createNewBook({
         photo,
         title,
         price,
