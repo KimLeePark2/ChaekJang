@@ -67,7 +67,6 @@ export default function useAxios() {
         type: body.photo[0].type,
         name: body.photo[0].fileName,
       });
-      formData.append('userId', body.userId);
       formData.append('title', body.title);
       formData.append('price', body.price);
       formData.append('description', body.description);

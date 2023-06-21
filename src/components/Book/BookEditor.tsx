@@ -44,7 +44,6 @@ const BookEditor: React.FC<PropsType> = ({
         if (didCancel) {
           return;
         }
-        console.log(assets && assets[0]);
         assets && setPhoto(assets);
       },
     );
