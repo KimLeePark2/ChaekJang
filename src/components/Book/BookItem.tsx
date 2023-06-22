@@ -3,19 +3,19 @@ import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { getFormattedCreatedAt } from '@utils/format';
-import type { IBookItem } from 'src/@types/book';
+import type { Content } from 'src/@types/book';
 import Star from '@assets/svgs/star.svg';
 
-type PropsType = IBookItem;
+type PropsType = Content;
 
 const BookItem: React.FC<PropsType> = ({
   id,
-  thumbnailImage,
+  thumbnailImagePaths,
   title,
   price,
-  wishCount,
-  isSoldOut,
-  createdAt,
+  wishes,
+  status,
+  createdAt = '2023-06-20T11:25:44.973',
 }) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamsType>>();
@@ -23,22 +23,22 @@ const BookItem: React.FC<PropsType> = ({
   return (
     <Pressable onPress={() => navigation.navigate('BookDetail', { id })}>
       <View style={styles.item}>
-        <Image source={thumbnailImage} style={styles.image} />
+        <Image source={{ uri: thumbnailImagePaths[0] }} style={styles.image} />
         <View style={styles.container}>
           <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.title}>
             {title}
           </Text>
           <Text style={styles.createdAt}>
-            {getFormattedCreatedAt(createdAt)}
+            {createdAt && getFormattedCreatedAt(createdAt)}
           </Text>
           <View style={styles.priceContainer}>
-            {isSoldOut && <Text style={styles.isSoldOut}>판매완료</Text>}
+            {status && <Text style={styles.status}>판매완료</Text>}
             <Text style={styles.price}>{price.toLocaleString()}원</Text>
           </View>
           <View style={styles.spacing} />
-          <View style={styles.wishCountContainer}>
+          <View style={styles.wishesContainer}>
             <Star stroke={'#BFBFBF'} />
-            <Text style={styles.wishCount}>{wishCount}</Text>
+            <Text style={styles.wishes}>{wishes}</Text>
           </View>
         </View>
       </View>
@@ -72,13 +72,13 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 16,
   },
-  wishCountContainer: {
+  wishesContainer: {
     alignSelf: 'flex-end',
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
   },
-  wishCount: {
+  wishes: {
     color: '#BFBFBF',
   },
   spacing: {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 5,
   },
-  isSoldOut: {
+  status: {
     padding: 5,
     backgroundColor: '#EFEFEF',
   },

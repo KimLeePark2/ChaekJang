@@ -7,18 +7,14 @@ import {
   View,
 } from 'react-native';
 import BookItem from './BookItem';
-import { DUMMY } from './DUMMY';
-import type { IBookItem } from 'src/@types/book';
+import type { Content } from 'src/@types/book';
 
 type PropsType = {
-  data?: IBookItem[];
+  data?: Content[];
   onScrolledToBottom?: (isBottom: boolean) => void;
 };
 
-const BookList: React.FC<PropsType> = ({
-  data = DUMMY,
-  onScrolledToBottom,
-}) => {
+const BookList: React.FC<PropsType> = ({ data, onScrolledToBottom }) => {
   const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (!onScrolledToBottom) {
       return;
