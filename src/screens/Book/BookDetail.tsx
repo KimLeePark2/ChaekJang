@@ -1,12 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Pressable,
-  Image,
-} from 'react-native';
+import { StyleSheet, View, Text, Pressable, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import type { IBookItem, IUserInfo } from 'src/@types/book';
 import { DUMMY } from 'src/components/Book/DUMMY';
@@ -15,7 +9,7 @@ import { getFormattedCreatedAt } from '@utils/format';
 import Star from '@assets/svgs/star2.svg';
 import More from '@assets/svgs/more-vertical.svg';
 import ActionSheetModal from 'src/components/ActionSheetModal';
-import useBookDetailActions from 'src/hooks/useBookDetailActions'
+import useBookDetailActions from 'src/hooks/useBookDetailActions';
 
 type PropsType = NativeStackScreenProps<RootStackParamsType, 'BookDetail'>;
 
@@ -24,13 +18,14 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
   const index: number = route.params?.id;
   const userInfo: IUserInfo = {
     id: 1,
-    profileImage: require('./../../components/Book/example2.jpg'),
+    // api에 user 프로필 이미지가 없어서 주석처리해두었습니다
+    // profileImage: require('./../../components/Book/example2.jpg'),
     nickname: '홍길동',
   };
   const onPressBack = () => {
     navigation.goBack();
   };
-  const {isSelecting, onPressMore, onClose, actions} = useBookDetailActions();
+  const { isSelecting, onPressMore, onClose, actions } = useBookDetailActions();
   return (
     <SafeAreaView edges={['bottom']}>
       <View
@@ -53,7 +48,8 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
       <View style={styles.container}>
         <Image style={styles.image} source={data[index]?.thumbnailImage} />
         <View style={styles.userContainer}>
-          <Image source={userInfo.profileImage} style={styles.userImage} />
+          {/* api에 user 프로필 이미지가 없어서 주석처리해두었습니다 */}
+          {/* <Image source={userInfo.profileImage} style={styles.userImage} /> */}
           <Text
             numberOfLines={1}
             ellipsizeMode={'tail'}
@@ -64,21 +60,20 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
         </View>
         <View style={styles.bodyContainer}>
           <View style={styles.mainTitle}>
-            <Text
-              numberOfLines={1}
-              ellipsizeMode={'tail'}
-              style={styles.title}
-            >
+            <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.title}>
               {data[index]?.title}
             </Text>
             <View style={styles.subTitle}>
-              <Text style={styles.createdAt}>{getFormattedCreatedAt(data[index]?.createdAt)}</Text>
-              <Text style={styles.wishCount}> • 관심 {data[index]?.wishCount}</Text>
+              <Text style={styles.createdAt}>
+                {getFormattedCreatedAt(data[index]?.createdAt)}
+              </Text>
+              <Text style={styles.wishCount}>
+                {' '}
+                • 관심 {data[index]?.wishCount}
+              </Text>
             </View>
           </View>
-          <Text style={styles.text}>
-            본문내용
-          </Text>
+          <Text style={styles.text}>본문내용</Text>
           <View style={styles.bottomContainer}>
             <Star style={styles.wishIcon} />
             <Text style={styles.price}>
@@ -87,7 +82,7 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
           </View>
         </View>
       </View>
-      <ActionSheetModal 
+      <ActionSheetModal
         visible={isSelecting}
         actions={actions}
         onClose={onClose}
@@ -177,7 +172,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#8E8E8E',
     marginBottom: 10,
-  }
+  },
 });
 
 export default BookDetail;

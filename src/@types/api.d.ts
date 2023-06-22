@@ -9,7 +9,7 @@ export interface requestNewBookApiData {
 }
 
 export interface responseProductsApi {
-  contents: Content[];
+  content: Content[];
   pageable: string;
   totalPages: number;
   totalElements: number;
