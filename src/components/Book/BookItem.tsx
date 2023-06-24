@@ -20,6 +20,8 @@ const BookItem: React.FC<PropsType> = ({
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamsType>>();
 
+  
+
   return (
     <Pressable onPress={() => navigation.navigate('BookDetail', { id })}>
       <View style={styles.item}>
@@ -32,7 +34,7 @@ const BookItem: React.FC<PropsType> = ({
             {createdAt && getFormattedCreatedAt(createdAt)}
           </Text>
           <View style={styles.priceContainer}>
-            {status && <Text style={styles.status}>판매완료</Text>}
+            {status === "SALE" ? (<Text style={styles.onSale}>판매중</Text>) : (<Text style={styles.onSold}>판매완료</Text>) }
             <Text style={styles.price}>{price.toLocaleString()}원</Text>
           </View>
           <View style={styles.spacing} />
@@ -89,9 +91,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 5,
   },
-  status: {
+  onSale: {
     padding: 5,
-    backgroundColor: '#EFEFEF',
+    backgroundColor: '#48BA95',
+    color: '#fff',
+    fontWeight: '700',
+  },
+  onSold: {
+    padding: 5,
+    backgroundColor: '#dedede',
+    color: '#fff',
+    fontWeight: '700',
   },
 });
 
