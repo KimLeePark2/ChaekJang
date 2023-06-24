@@ -17,7 +17,7 @@ type PropsType = NativeStackScreenProps<RootStackParamsType, 'BookDetail'>;
 const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
   const index: number = route.params?.id;
   const [product, setProduct] = useState<Content | null>(null);
-  const { getProduct } = useBookAPI();
+  const { getProduct, wishClick } = useBookAPI();
   const initialGetProduct = useCallback(async () => {
     const response = await getProduct(index);
     if (response.status === 200) {
@@ -33,6 +33,10 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
   const onPressBack = () => {
     navigation.goBack();
   };
+  const onPressWish = () => {
+    const response = wishClick(index);
+    console.log("whis 확인 :: ",response);
+  }
   const { isSelecting, onPressMore, onClose, actions } = useBookDetailActions();
   return (
     <SafeAreaView edges={['bottom']}>
@@ -83,7 +87,9 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
           </View>
           <Text style={styles.text}>{product.description}</Text>
           <View style={styles.bottomContainer}>
-            <Star style={styles.wishIcon} />
+            <Pressable onPress={onPressWish}>
+              <Star style={styles.wishIcon} />
+            </Pressable>
             <Text style={styles.price}>
               {product.price.toLocaleString()}원
             </Text>
