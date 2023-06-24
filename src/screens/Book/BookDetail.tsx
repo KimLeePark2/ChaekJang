@@ -2,8 +2,6 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, View, Text, Pressable, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import type { IBookItem, IUserInfo } from 'src/@types/book';
-import { DUMMY } from 'src/components/Book/DUMMY';
 import ChevronLeft from 'src/assets/svgs/chevron-left.svg';
 import { getFormattedCreatedAt } from '@utils/format';
 import type { Content } from 'src/@types/book';
@@ -12,20 +10,14 @@ import Star from '@assets/svgs/star2.svg';
 import More from '@assets/svgs/more-vertical.svg';
 import ActionSheetModal from 'src/components/ActionSheetModal';
 import useBookDetailActions from 'src/hooks/useBookDetailActions';
+import profileImg from '@assets/images/blank_profile_picture.png';
 
 type PropsType = NativeStackScreenProps<RootStackParamsType, 'BookDetail'>;
 
 const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
-  const data: IBookItem[] = DUMMY;
   const index: number = route.params?.id;
-  const userInfo: IUserInfo = {
-    id: 1,
-    // api에 user 프로필 이미지가 없어서 주석처리해두었습니다
-    // profileImage: require('./../../components/Book/example2.jpg'),
-    nickname: '홍길동',
-  };
   const [product, setProduct] = useState<Content | null>(null);
-  const { getProduct } = useBookAPI();
+  const { getProduct, wishClick } = useBookAPI();
   const initialGetProduct = useCallback(async () => {
     const response = await getProduct(index);
     if (response.status === 200) {
@@ -41,6 +33,10 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
   const onPressBack = () => {
     navigation.goBack();
   };
+  const onPressWish = () => {
+    const response = wishClick(index);
+    console.log("whis 확인 :: ",response);
+  }
   const { isSelecting, onPressMore, onClose, actions } = useBookDetailActions();
   return (
     <SafeAreaView edges={['bottom']}>
@@ -65,8 +61,7 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
       <View style={styles.container}>
         <Image style={styles.image} source={{ uri: product.thumbnailImagePaths[0]}} />
         <View style={styles.userContainer}>
-          {/* api에 user 프로필 이미지가 없어서 주석처리해두었습니다 */}
-          {/* <Image source={userInfo.profileImage} style={styles.userImage} /> */}
+          <Image source={profileImg} style={styles.userImage} />
           <Text
             numberOfLines={1}
             ellipsizeMode={'tail'}
@@ -92,7 +87,9 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
           </View>
           <Text style={styles.text}>{product.description}</Text>
           <View style={styles.bottomContainer}>
-            <Star style={styles.wishIcon} />
+            <Pressable onPress={onPressWish}>
+              <Star style={styles.wishIcon} />
+            </Pressable>
             <Text style={styles.price}>
               {product.price.toLocaleString()}원
             </Text>

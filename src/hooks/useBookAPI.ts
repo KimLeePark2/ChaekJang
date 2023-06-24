@@ -39,5 +39,12 @@ export default function useBookAPI() {
     );
   };
 
-  return { createNewBook, getProducts, getProduct };
+  const wishClick = (productId: number) => {
+    return requestSecureApi(
+      'patch',
+      `/v1/products/${productId}/wish`,
+    );
+  };
+
+  return { createNewBook, getProducts, getProduct, wishClick };
 }
