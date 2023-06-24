@@ -17,15 +17,18 @@ import { IUser } from 'src/@types/user';
 type PropsType = NativeStackScreenProps<RootStackParamsType, 'BookDetail'>;
 
 const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
-  const index: number = route.params?.id;
+  const productId: number = route.params?.id;
   const [product, setProduct] = useState<Content | null>(null);
   const [userInfo, setUserInfo] = useState<IUser>();
-  const { getProduct, wishClick } = useBookAPI();
+  const [status, setStatus] = useState(true);
+  const { getProduct, wishClick, changeToSale, changeToSold } = useBookAPI();
   const { getUser } = useUserAPI();
   const initialGetProduct = useCallback(async () => {
-    const response = await getProduct(index);
+    const response = await getProduct(productId);
     if (response.status === 200) {
       setProduct(response.data);
+      response.data.status === 'SALE' ? setStatus(true) : setStatus(false);
+      console.log(response.data.status);
     } else {
       console.log("error :: ", response);
     }
@@ -38,21 +41,34 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
       console.log("error :: ", response);
     }
   }, []);
+  const onChangeStatus = useCallback(async () => {
+    const response = status ? await changeToSold(productId) : await changeToSale(productId);
+    if (response.status === 200) {
+      setStatus(!status);
+    } else {
+      console.log("error :: ", response);
+    }
+  }, []);
 
   useEffect(() => {
     initialGetProduct();
     getUserInfo();
   }, []);
+
+  const isMine:boolean = userInfo?.id === product?.seller.id ? true : false;
   const onPressBack = () => {
     navigation.goBack();
   };
   const onPressWish = () => {
-    const response = wishClick(index);
+    const response = wishClick(productId);
     console.log("whis 확인 :: ",response);
-  }
+  };
+  const onPressBtn = () => {
+    if (isMine) {
+      onChangeStatus(); 
+    }
+  };
   const { isSelecting, onPressMore, onClose, actions } = useBookDetailActions();
-  const isMine:boolean = userInfo?.id === product?.seller.id ? true : false;
-  
   return (
     <SafeAreaView edges={['bottom']}>
       <View
@@ -104,12 +120,25 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
           </View>
           <Text style={styles.text}>{product.description}</Text>
           <View style={styles.bottomContainer}>
-            <Pressable onPress={onPressWish}>
-              <Star style={styles.wishIcon} />
-            </Pressable>
-            <Text style={styles.price}>
-              {product.price.toLocaleString()}원
-            </Text>
+            <View style={styles.bottmLeft}>
+              <Pressable onPress={onPressWish}>
+                <Star style={styles.wishIcon} />
+              </Pressable>
+              <Text style={styles.price}>
+                {product.price.toLocaleString()}원
+              </Text>
+            </View>
+            <Pressable 
+              style={status ? styles.btnSale : styles.btnSold}
+              onPress={onPressBtn}
+            >
+              {status ? (
+                <Text style={{ color:'#ffffff', fontWeight: '700'}}>판매중</Text>
+              ) : (
+                <Text style={{ color:'#ffffff', fontWeight: '700' }}>판매완료</Text>
+              )}
+              
+              </Pressable>
           </View>
         </View>
       </View>
@@ -195,6 +224,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   wishIcon: {
     color: '#48BA95',
@@ -204,6 +234,24 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#8E8E8E',
     marginBottom: 10,
+  },
+  bottmLeft: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  btnSale: {
+    marginRight: 16,
+    padding: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    backgroundColor: '#48BA95',
+  },
+  btnSold: {
+    marginRight: 16,
+    padding: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    backgroundColor: '#aaaaaa',
   },
 });
 

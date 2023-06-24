@@ -46,5 +46,18 @@ export default function useBookAPI() {
     );
   };
 
-  return { createNewBook, getProducts, getProduct, wishClick };
+  const changeToSale = (productId: number) => {
+    return requestSecureApi(
+      'patch',
+      `/v1/products/${productId}/sale`,
+    );
+  };
+  const changeToSold = (productId: number) => {
+    return requestSecureApi(
+      'patch',
+      `/v1/products/${productId}/sold`,
+    );
+  };
+
+  return { createNewBook, getProducts, getProduct, wishClick, changeToSale, changeToSold };
 }
