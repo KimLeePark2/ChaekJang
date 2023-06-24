@@ -6,18 +6,22 @@ import ChevronLeft from 'src/assets/svgs/chevron-left.svg';
 import { getFormattedCreatedAt } from '@utils/format';
 import type { Content } from 'src/@types/book';
 import useBookAPI from '@hooks/useBookAPI';
+import useUserAPI from '@hooks/useUserAPI';
 import Star from '@assets/svgs/star2.svg';
 import More from '@assets/svgs/more-vertical.svg';
 import ActionSheetModal from 'src/components/ActionSheetModal';
 import useBookDetailActions from 'src/hooks/useBookDetailActions';
 import profileImg from '@assets/images/blank_profile_picture.png';
+import { IUser } from 'src/@types/user';
 
 type PropsType = NativeStackScreenProps<RootStackParamsType, 'BookDetail'>;
 
 const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
   const index: number = route.params?.id;
   const [product, setProduct] = useState<Content | null>(null);
+  const [userInfo, setUserInfo] = useState<IUser>();
   const { getProduct, wishClick } = useBookAPI();
+  const { getUser } = useUserAPI();
   const initialGetProduct = useCallback(async () => {
     const response = await getProduct(index);
     if (response.status === 200) {
@@ -26,9 +30,18 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
       console.log("error :: ", response);
     }
   }, []);
+  const getUserInfo = useCallback(async () => {
+    const response = await getUser();
+    if (response.status === 200) {
+      setUserInfo(response.data);
+    } else {
+      console.log("error :: ", response);
+    }
+  }, []);
 
   useEffect(() => {
     initialGetProduct();
+    getUserInfo();
   }, []);
   const onPressBack = () => {
     navigation.goBack();
@@ -38,6 +51,8 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
     console.log("whis 확인 :: ",response);
   }
   const { isSelecting, onPressMore, onClose, actions } = useBookDetailActions();
+  const isMine:boolean = userInfo?.id === product?.seller.id ? true : false;
+  
   return (
     <SafeAreaView edges={['bottom']}>
       <View
@@ -53,9 +68,11 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
         <Pressable onPress={onPressBack}>
           <ChevronLeft style={{ color: '#48BA95', padding: 4 }} />
         </Pressable>
-        <Pressable hitSlop={8} onPress={onPressMore}>
-          <More style={{ color: '#48BA95', padding: 4 }} />
-        </Pressable>
+        {isMine && (
+          <Pressable hitSlop={8} onPress={onPressMore}>
+            <More style={{ color: '#48BA95', padding: 4 }} />
+          </Pressable>
+        )}        
       </View>
       {product && (
       <View style={styles.container}>
