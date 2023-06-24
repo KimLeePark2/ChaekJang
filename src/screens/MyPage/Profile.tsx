@@ -5,12 +5,14 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import MenuItem from '@components/MyPage/MenuItem';
 import tokenStorage from '@storages/tokenStorage';
 import useAxios from '@hooks/useAxios';
+import type { IUser } from 'src/@types/user';
 
 const Profile = () => {
   const isFocused = useIsFocused();
   const { requestSecureApi } = useAxios();
   const [token, setToken] = useState<string | null>(null);
   const [nickname, setNickname] = useState('');
+  const [userId, setUserId] = useState('');
   const navigation =
     useNavigation<
       NativeStackNavigationProp<MyPageStackParamsType & RootStackParamsType>
@@ -34,12 +36,13 @@ const Profile = () => {
 
   // 내 정보 조회
   const getUserProfile = async () => {
-    const { data, status } = await requestSecureApi<{ nickname: string }>(
+    const { data, status } = await requestSecureApi<IUser>(
       'get',
       '/auths/my',
     );
     if (status === 200) {
       setNickname(data.nickname);
+      setUserId(data.id);
     }
   };
 
@@ -79,11 +82,11 @@ const Profile = () => {
         <View style={styles.navigationContainer}>
           <MenuItem
             name="판매내역"
-            onPress={() => navigation.navigate('SalesHistory')}
+            onPress={() => navigation.navigate('SalesHistory', { userId })}
           />
           <MenuItem
             name="관심목록"
-            onPress={() => navigation.navigate('WishList')}
+            onPress={() => navigation.navigate('WishList', { userId })}
           />
           <MenuItem name="로그아웃" onPress={onPressLogout} />
         </View>

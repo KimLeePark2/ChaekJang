@@ -23,7 +23,7 @@ type SearchStackParamsType = {
 
 type MyPageStackParamsType = {
   Profile: undefined;
-  SalesHistory: undefined;
+  SalesHistory: { userId: string };
   PurchaseHistory: undefined;
-  WishList: undefined;
+  WishList: { userId: string };
 };
