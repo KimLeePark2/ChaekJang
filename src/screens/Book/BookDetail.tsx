@@ -28,7 +28,7 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
     if (response.status === 200) {
       setProduct(response.data);
       response.data.status === 'SALE' ? setStatus(true) : setStatus(false);
-      console.log(response.data.status);
+      console.log(response.data);
     } else {
       console.log("error :: ", response);
     }
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
-    backgroundColor: '#aaaaaa',
+    backgroundColor: '#dedede',
   },
 });
 
