@@ -1,11 +1,13 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, View, Text, Pressable, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import type { IBookItem, IUserInfo } from 'src/@types/book';
 import { DUMMY } from 'src/components/Book/DUMMY';
 import ChevronLeft from 'src/assets/svgs/chevron-left.svg';
 import { getFormattedCreatedAt } from '@utils/format';
+import type { Content } from 'src/@types/book';
+import useBookAPI from '@hooks/useBookAPI';
 import Star from '@assets/svgs/star2.svg';
 import More from '@assets/svgs/more-vertical.svg';
 import ActionSheetModal from 'src/components/ActionSheetModal';
@@ -22,6 +24,20 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
     // profileImage: require('./../../components/Book/example2.jpg'),
     nickname: '홍길동',
   };
+  const [product, setProduct] = useState<Content | null>(null);
+  const { getProduct } = useBookAPI();
+  const initialGetProduct = useCallback(async () => {
+    const response = await getProduct(index);
+    if (response.status === 200) {
+      setProduct(response.data);
+    } else {
+      console.log("error :: ", response);
+    }
+  }, []);
+
+  useEffect(() => {
+    initialGetProduct();
+  }, []);
   const onPressBack = () => {
     navigation.goBack();
   };
@@ -45,8 +61,9 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
           <More style={{ color: '#48BA95', padding: 4 }} />
         </Pressable>
       </View>
+      {product && (
       <View style={styles.container}>
-        <Image style={styles.image} source={data[index]?.thumbnailImage} />
+        <Image style={styles.image} source={{ uri: product.thumbnailImagePaths[0]}} />
         <View style={styles.userContainer}>
           {/* api에 user 프로필 이미지가 없어서 주석처리해두었습니다 */}
           {/* <Image source={userInfo.profileImage} style={styles.userImage} /> */}
@@ -55,33 +72,34 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
             ellipsizeMode={'tail'}
             style={styles.userName}
           >
-            {userInfo.nickname}
+            {product.seller.nickname}
           </Text>
         </View>
         <View style={styles.bodyContainer}>
           <View style={styles.mainTitle}>
             <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.title}>
-              {data[index]?.title}
+              {product.title}
             </Text>
             <View style={styles.subTitle}>
               <Text style={styles.createdAt}>
-                {getFormattedCreatedAt(data[index]?.createdAt)}
+                {getFormattedCreatedAt(product.createdAt)}
               </Text>
               <Text style={styles.wishCount}>
                 {' '}
-                • 관심 {data[index]?.wishCount}
+                • 관심 {product.wishes}
               </Text>
             </View>
           </View>
-          <Text style={styles.text}>본문내용</Text>
+          <Text style={styles.text}>{product.description}</Text>
           <View style={styles.bottomContainer}>
             <Star style={styles.wishIcon} />
             <Text style={styles.price}>
-              {data[index]?.price.toLocaleString()}원
+              {product.price.toLocaleString()}원
             </Text>
           </View>
         </View>
       </View>
+      )}
       <ActionSheetModal
         visible={isSelecting}
         actions={actions}

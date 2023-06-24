@@ -2,6 +2,9 @@ import type {
   requestNewBookApiData,
   responseProductsApi,
 } from 'src/@types/api';
+import type {
+  Content,
+} from 'src/@types/book';
 import useAxios from './useAxios';
 
 export default function useBookAPI() {
@@ -29,5 +32,12 @@ export default function useBookAPI() {
     );
   };
 
-  return { createNewBook, getProducts };
+  const getProduct = (productId: number) => {
+    return requestApi<Content>(
+      'get',
+      `/v1/products/${productId}`,
+    );
+  };
+
+  return { createNewBook, getProducts, getProduct };
 }

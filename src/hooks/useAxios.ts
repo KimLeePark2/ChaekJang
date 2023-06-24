@@ -45,7 +45,8 @@ export default function useAxios() {
     ) => {
       const accessToken = await tokenStorage
         .get('accessToken')
-        .then(res => res);
+        .then(res => res)
+        .catch(err => err);
 
       axios.defaults.headers.Authorization = `Bearer ${accessToken}`;
 
