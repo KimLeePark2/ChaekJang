@@ -10,6 +10,11 @@ export default function useUserAPI() {
             `/v1/products/${userId}/sales?page=${pageNumber}&size=10&sort=id.desc&paged=true`,
         );
     };
-
-    return { getMySales };
+    const getMyWishes = (pageNumber: number, userId: String) => {
+        return requestSecureApi<responseProductsApi>(
+            'get',
+            `/v1/products/${userId}/wishes?page=${pageNumber}&size=10&sort=id.desc&paged=true`,
+        );
+    };
+    return { getMySales, getMyWishes };
 }
