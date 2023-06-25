@@ -1,6 +1,8 @@
 import BookList from '@components/Book/BookList';
 import MainHeader from '@components/Header/MainHeader';
+import useBookAPI from '@hooks/useBookAPI';
 import AsyncStorage from '@react-native-community/async-storage';
+import { AxiosError } from 'axios';
 import React, { useState } from 'react';
 import {
   View,
@@ -9,8 +11,8 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
+import { Content } from 'src/@types/book';
 import XIcon from 'src/assets/svgs/x.svg';
-import { DUMMY } from '@components/Book/DUMMY';
 import NotFound from '@screens/Search/NotFound';
 
 const SEARCH_WORDS = ['갤럭시', '아이폰', '맥북'];
@@ -21,21 +23,55 @@ const Search = () => {
   const [replaceInputValue, setReplaceInputValue] = React.useState(
     inputValue?.replace(/ /g, ''),
   );
-  const [bookListData, setBookListData] = useState(DUMMY);
-  React.useEffect(() => {
-    const replaceSearchValue = searchValue?.replace(/ /g, '');
-    if (replaceSearchValue) {
-      setBookListData(prev => {
-        return prev.filter(
-          item =>
-            item?.title.replace(/ /g, '').includes(replaceSearchValue) ||
-            item?.writer.replace(/ /g, '').includes(replaceSearchValue),
-        );
-      });
-    } else {
-      setBookListData(DUMMY);
+  const [bookListData, setBookListData] = useState<Content[] | null>(null);
+  const [filteredData, setFilteredData] = useState<Content[] | null>(null);
+  const { getProducts } = useBookAPI();
+
+  const getBookList = async () => {
+    try {
+      const response = await getProducts(1);
+      const { status, data } = response;
+      if (status === 200) {
+        console.log(data);
+        setBookListData(data.content);
+      }
+    } catch (e) {
+      if (e instanceof AxiosError && e.response) {
+        const { status: code } = e.response;
+        console.log(code, 'axios error');
+      } else {
+        console.log('알 수 없는 error');
+      }
     }
-  }, [searchValue]);
+  };
+
+  React.useLayoutEffect(() => {
+    getBookList().then();
+  }, []);
+
+  React.useEffect(() => {
+    console.log(bookListData, 'booklist data');
+  }, [bookListData]);
+
+  React.useEffect(() => {
+    const replaceSearchValue = searchValue?.replace(/ /g, '').toLowerCase();
+    if (replaceSearchValue && bookListData) {
+      const filteredData = bookListData.filter(
+        item =>
+          item.title
+            .replace(/ /g, '')
+            .toLowerCase()
+            .includes(replaceSearchValue) ||
+          item.description
+            .replace(/ /g, '')
+            .toLowerCase()
+            .includes(replaceSearchValue),
+      );
+      setFilteredData(filteredData);
+    } else {
+      setFilteredData(null);
+    }
+  }, [searchValue, bookListData]);
 
   React.useEffect(() => {
     _retrieveData().then();
@@ -157,12 +193,12 @@ const Search = () => {
     );
   };
   const _searchPage = () => {
-    if (bookListData.length === 0) {
+    if (!filteredData) {
       return <NotFound />;
     }
     return (
       <View style={{ flex: 1 }}>
-        <BookList data={bookListData} />
+        <BookList data={filteredData} />
       </View>
     );
   };
