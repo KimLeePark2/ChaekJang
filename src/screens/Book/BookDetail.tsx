@@ -7,7 +7,8 @@ import { getFormattedCreatedAt } from '@utils/format';
 import type { Content } from 'src/@types/book';
 import useBookAPI from '@hooks/useBookAPI';
 import useUserAPI from '@hooks/useUserAPI';
-import Star from '@assets/svgs/star2.svg';
+import EmptyStar from '@assets/svgs/emptyStar.svg';
+import FillStar from '@assets/svgs/fillStar.svg';
 import More from '@assets/svgs/more-vertical.svg';
 import ActionSheetModal from 'src/components/ActionSheetModal';
 import useBookDetailActions from 'src/hooks/useBookDetailActions';
@@ -21,6 +22,8 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
   const [product, setProduct] = useState<Content | null>(null);
   const [userInfo, setUserInfo] = useState<IUser>();
   const [status, setStatus] = useState(true);
+  const [isWished, setIsWished] = useState({});
+  const [wishes, setWishes] = useState(0);
   const { getProduct, wishClick, changeToSale, changeToSold } = useBookAPI();
   const { getUser } = useUserAPI();
   const initialGetProduct = useCallback(async () => {
@@ -28,7 +31,8 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
     if (response.status === 200) {
       setProduct(response.data);
       response.data.status === 'SALE' ? setStatus(true) : setStatus(false);
-      console.log(response.data);
+      setIsWished(response.data.isWished);
+      setWishes(response.data.wishes);
     } else {
       console.log("error :: ", response);
     }
@@ -59,10 +63,16 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
   const onPressBack = () => {
     navigation.goBack();
   };
-  const onPressWish = () => {
-    const response = wishClick(productId);
-    console.log("whis 확인 :: ",response);
-  };
+  const onPressWish = useCallback(async () => {
+    const response = await wishClick(productId);
+    if (response.status === 200) {
+      setIsWished(response.data);
+      console.log(wishes);
+      response.data ? setWishes(wishes => wishes + 1) : setWishes(wishes => wishes - 1);
+    } else {
+      console.log("error :: ", response);
+    }
+  }, []);
   const onPressBtn = () => {
     if (isMine) {
       onChangeStatus(); 
@@ -114,7 +124,7 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
               </Text>
               <Text style={styles.wishCount}>
                 {' '}
-                • 관심 {product.wishes}
+                • 관심 {wishes}
               </Text>
             </View>
           </View>
@@ -122,7 +132,7 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
           <View style={styles.bottomContainer}>
             <View style={styles.bottmLeft}>
               <Pressable onPress={onPressWish}>
-                <Star style={styles.wishIcon} />
+                {isWished ? <FillStar style={styles.wishIcon} /> : <EmptyStar style={styles.wishIcon} />}
               </Pressable>
               <Text style={styles.price}>
                 {product.price.toLocaleString()}원
@@ -177,7 +187,7 @@ const styles = StyleSheet.create({
   },
   userName: {
     marginLeft: 12,
-    fontSize: 16,
+    fontSize: 18,
   },
   bodyContainer: {
     position: 'relative',
@@ -185,7 +195,7 @@ const styles = StyleSheet.create({
     height: '30%',
   },
   text: {
-    fontSize: 16,
+    fontSize: 18,
     paddingHorizontal: 16,
     marginTop: 10,
   },
@@ -199,17 +209,17 @@ const styles = StyleSheet.create({
   },
   title: {
     paddingVertical: 0,
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: '700',
     marginBottom: 10,
   },
   createdAt: {
-    fontSize: 12,
+    fontSize: 14,
     color: '#8E8E8E',
     marginBottom: 10,
   },
   price: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '700',
     marginBottom: 5,
   },

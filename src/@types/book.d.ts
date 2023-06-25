@@ -4,6 +4,7 @@ export interface Content {
   description: string;
   status: 'SALE' | 'SOLD' | 'RESERVED';
   price: number;
+  isWished: boolean;
   thumbnailImagePaths: string[];
   seller: {
     id: string;
