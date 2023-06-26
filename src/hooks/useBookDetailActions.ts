@@ -1,20 +1,26 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { ActionSheetIOS, Alert, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import useBookAPI from '@hooks/useBookAPI';
 
-export default function useBookDetailActions() {
+export default function useBookDetailActions(productId: number) {
+    const { deleteProduct } = useBookAPI();
     const navigation =
-        useNavigation<NativeStackNavigationProp<RootStackParamsType>>();
+        useNavigation<NativeStackNavigationProp<RootStackParamsType & HomeStackParamsType>>();
     const [isSelecting, setIsSelecting] = useState(false);
     const edit = () => {
         console.log('TODO: edit');
         navigation.navigate('NewBook');
     };
-    const remove = () => {
-        console.log('TODO: remove');
-        Alert.alert('삭제하기');
-    };
+    const remove = useCallback(async () => {
+        const response = await deleteProduct(productId);
+        if (response.status === 200) {
+            navigation.goBack();
+        } else {
+            console.log("error :: ", response);
+        }
+    }, []);
     const onPressMore = () => {
         if (Platform.OS === 'android') {
             setIsSelecting(true);

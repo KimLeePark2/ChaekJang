@@ -24,7 +24,7 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
   const [status, setStatus] = useState(true);
   const [isWished, setIsWished] = useState({});
   const [wishes, setWishes] = useState(0);
-  const { getProduct, wishClick, changeToSale, changeToSold } = useBookAPI();
+  const { getProduct, wishClick, changeToSale, changeToSold, deleteProduct } = useBookAPI();
   const { getUser } = useUserAPI();
   const initialGetProduct = useCallback(async () => {
     const response = await getProduct(productId);
@@ -78,7 +78,7 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
       onChangeStatus(); 
     }
   };
-  const { isSelecting, onPressMore, onClose, actions } = useBookDetailActions();
+  const { isSelecting, onPressMore, onClose, actions } = useBookDetailActions(productId);
   return (
     <SafeAreaView edges={['bottom']}>
       <View
@@ -154,6 +154,7 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
       </View>
       )}
       <ActionSheetModal
+        // data={productId}
         visible={isSelecting}
         actions={actions}
         onClose={onClose}

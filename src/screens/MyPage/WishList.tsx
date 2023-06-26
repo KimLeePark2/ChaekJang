@@ -1,5 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -11,6 +12,7 @@ import type { Content } from 'src/@types/book';
 type PropsType = NativeStackScreenProps<MyPageStackParamsType, 'WishList'>;
 
 const WishList: React.FC<PropsType> = ({ navigation, route }) => {
+  const isFocused = useIsFocused();
   const userId: string = route.params?.userId;
   const onPressBack = () => navigation.goBack();
   const [products, setProducts] = useState<Content[]>([]);
@@ -26,7 +28,7 @@ const WishList: React.FC<PropsType> = ({ navigation, route }) => {
 
   useEffect(() => {
     initialGetProducts();
-  }, []);
+  }, [isFocused]);
 
   return (
     <SafeAreaView edges={['bottom']} style={styles.container}>
