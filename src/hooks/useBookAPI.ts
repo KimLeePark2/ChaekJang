@@ -58,6 +58,12 @@ export default function useBookAPI() {
       `/v1/products/${productId}/sold`,
     );
   };
+  const deleteProduct = (productId: number) => {
+    return requestSecureApi(
+      'delete',
+      `/v1/products/${productId}`,
+    );
+  };
 
-  return { createNewBook, getProducts, getProduct, wishClick, changeToSale, changeToSold };
+  return { createNewBook, getProducts, getProduct, wishClick, changeToSale, changeToSold, deleteProduct };
 }
