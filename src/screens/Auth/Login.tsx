@@ -3,7 +3,8 @@ import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import useAxios from '@hooks/useAxios';
 import { getProfile, login } from '@react-native-seoul/kakao-login';
-import KAKAO_LOGIN_BUTTON_IMAGE from '@assets/images/kakao_login_large_wide.png';
+import KAKAO_LOGIN_BUTTON_IMAGE from 'src/assets/images/kakao_login_medium_wide.png';
+import ChevronLeft from 'src/assets/svgs/chevron-left.svg';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import tokenStorage from '@storages/tokenStorage';
 
@@ -58,15 +59,22 @@ const Login = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.subtitle}>믿을 수 있는 중고서점</Text>
-        <Text style={styles.title}>책장정리</Text>
+    <>
+      <View style={{ alignItems: 'flex-start', width: '100%' }}>
+        <Pressable onPress={() => navigation.pop()}>
+          <ChevronLeft color={'#48BA95'} />
+        </Pressable>
       </View>
-      <Pressable onPress={onPressLogin} style={styles.loginPressable}>
-        <Image source={KAKAO_LOGIN_BUTTON_IMAGE} style={styles.loginImage} />
-      </Pressable>
-    </View>
+      <View style={styles.container}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.subtitle}>믿을 수 있는 중고서점</Text>
+          <Text style={styles.title}>책장정리</Text>
+        </View>
+        <Pressable onPress={onPressLogin} style={styles.loginPressable}>
+          <Image source={KAKAO_LOGIN_BUTTON_IMAGE} style={styles.loginImage} />
+        </Pressable>
+      </View>
+    </>
   );
 };
 
