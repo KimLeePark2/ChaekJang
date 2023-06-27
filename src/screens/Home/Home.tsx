@@ -16,7 +16,6 @@ const Home = () => {
 
   const initialGetProducts = useCallback(async () => {
     const response = await getProducts(pageNumber.current);
-    console.log(pageNumber.current);
     if (response.status === 200) {
       pageNumber.current += 1;
       setProducts(response.data.content);
@@ -38,7 +37,6 @@ const Home = () => {
   }
 
   const onScrolledToBottom = async (isBottom: boolean) => {
-    console.log(isBottom, pageNumber.current, done.current);
     if (isBottom) {
       if (!done.current) {
         const response = await getProducts(pageNumber.current);

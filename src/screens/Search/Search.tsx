@@ -32,7 +32,6 @@ const Search = () => {
       const response = await getProducts(1);
       const { status, data } = response;
       if (status === 200) {
-        console.log(data);
         setBookListData(data.content);
       }
     } catch (e) {
@@ -48,10 +47,6 @@ const Search = () => {
   React.useLayoutEffect(() => {
     getBookList().then();
   }, []);
-
-  React.useEffect(() => {
-    console.log(bookListData, 'booklist data');
-  }, [bookListData]);
 
   React.useEffect(() => {
     const replaceSearchValue = searchValue?.replace(/ /g, '').toLowerCase();

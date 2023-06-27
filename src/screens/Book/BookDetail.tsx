@@ -24,7 +24,8 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
   const [status, setStatus] = useState(true);
   const [isWished, setIsWished] = useState({});
   const [wishes, setWishes] = useState(0);
-  const { getProduct, wishClick, changeToSale, changeToSold, deleteProduct } = useBookAPI();
+  const { getProduct, wishClick, changeToSale, changeToSold, deleteProduct } =
+    useBookAPI();
   const { getUser } = useUserAPI();
   const initialGetProduct = useCallback(async () => {
     const response = await getProduct(productId);
@@ -34,7 +35,7 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
       setIsWished(response.data.isWished);
       setWishes(response.data.wishes);
     } else {
-      console.log("error :: ", response);
+      console.log('error :: ', response);
     }
   }, []);
   const getUserInfo = useCallback(async () => {
@@ -42,15 +43,17 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
     if (response.status === 200) {
       setUserInfo(response.data);
     } else {
-      console.log("error :: ", response);
+      console.log('error :: ', response);
     }
   }, []);
   const onChangeStatus = useCallback(async () => {
-    const response = status ? await changeToSold(productId) : await changeToSale(productId);
+    const response = status
+      ? await changeToSold(productId)
+      : await changeToSale(productId);
     if (response.status === 200) {
       setStatus(!status);
     } else {
-      console.log("error :: ", response);
+      console.log('error :: ', response);
     }
   }, []);
 
@@ -59,7 +62,7 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
     getUserInfo();
   }, []);
 
-  const isMine:boolean = userInfo?.id === product?.seller.id ? true : false;
+  const isMine: boolean = userInfo?.id === product?.seller.id ? true : false;
   const onPressBack = () => {
     navigation.goBack();
   };
@@ -67,18 +70,20 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
     const response = await wishClick(productId);
     if (response.status === 200) {
       setIsWished(response.data);
-      console.log(wishes);
-      response.data ? setWishes(wishes => wishes + 1) : setWishes(wishes => wishes - 1);
+      response.data
+        ? setWishes(wishes => wishes + 1)
+        : setWishes(wishes => wishes - 1);
     } else {
-      console.log("error :: ", response);
+      console.log('error :: ', response);
     }
   }, []);
   const onPressBtn = () => {
     if (isMine) {
-      onChangeStatus(); 
+      onChangeStatus();
     }
   };
-  const { isSelecting, onPressMore, onClose, actions } = useBookDetailActions(productId);
+  const { isSelecting, onPressMore, onClose, actions } =
+    useBookDetailActions(productId);
   return (
     <SafeAreaView edges={['bottom']}>
       <View
@@ -98,60 +103,71 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
           <Pressable hitSlop={8} onPress={onPressMore}>
             <More style={{ color: '#48BA95', padding: 4 }} />
           </Pressable>
-        )}        
+        )}
       </View>
       {product && (
-      <View style={styles.container}>
-        <Image style={styles.image} source={{ uri: product.thumbnailImagePaths[0]}} />
-        <View style={styles.userContainer}>
-          <Image source={profileImg} style={styles.userImage} />
-          <Text
-            numberOfLines={1}
-            ellipsizeMode={'tail'}
-            style={styles.userName}
-          >
-            {product.seller.nickname}
-          </Text>
-        </View>
-        <View style={styles.bodyContainer}>
-          <View style={styles.mainTitle}>
-            <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.title}>
-              {product.title}
-            </Text>
-            <View style={styles.subTitle}>
-              <Text style={styles.createdAt}>
-                {getFormattedCreatedAt(product.createdAt)}
-              </Text>
-              <Text style={styles.wishCount}>
-                {' '}
-                • 관심 {wishes}
-              </Text>
-            </View>
-          </View>
-          <Text style={styles.text}>{product.description}</Text>
-          <View style={styles.bottomContainer}>
-            <View style={styles.bottmLeft}>
-              <Pressable onPress={onPressWish}>
-                {isWished ? <FillStar style={styles.wishIcon} /> : <EmptyStar style={styles.wishIcon} />}
-              </Pressable>
-              <Text style={styles.price}>
-                {product.price.toLocaleString()}원
-              </Text>
-            </View>
-            <Pressable 
-              style={status ? styles.btnSale : styles.btnSold}
-              onPress={onPressBtn}
+        <View style={styles.container}>
+          <Image
+            style={styles.image}
+            source={{ uri: product.thumbnailImagePaths[0] }}
+          />
+          <View style={styles.userContainer}>
+            <Image source={profileImg} style={styles.userImage} />
+            <Text
+              numberOfLines={1}
+              ellipsizeMode={'tail'}
+              style={styles.userName}
             >
-              {status ? (
-                <Text style={{ color:'#ffffff', fontWeight: '700'}}>판매중</Text>
-              ) : (
-                <Text style={{ color:'#ffffff', fontWeight: '700' }}>판매완료</Text>
-              )}
-              
+              {product.seller.nickname}
+            </Text>
+          </View>
+          <View style={styles.bodyContainer}>
+            <View style={styles.mainTitle}>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode={'tail'}
+                style={styles.title}
+              >
+                {product.title}
+              </Text>
+              <View style={styles.subTitle}>
+                <Text style={styles.createdAt}>
+                  {getFormattedCreatedAt(product.createdAt)}
+                </Text>
+                <Text style={styles.wishCount}> • 관심 {wishes}</Text>
+              </View>
+            </View>
+            <Text style={styles.text}>{product.description}</Text>
+            <View style={styles.bottomContainer}>
+              <View style={styles.bottmLeft}>
+                <Pressable onPress={onPressWish}>
+                  {isWished ? (
+                    <FillStar style={styles.wishIcon} />
+                  ) : (
+                    <EmptyStar style={styles.wishIcon} />
+                  )}
+                </Pressable>
+                <Text style={styles.price}>
+                  {product.price.toLocaleString()}원
+                </Text>
+              </View>
+              <Pressable
+                style={status ? styles.btnSale : styles.btnSold}
+                onPress={onPressBtn}
+              >
+                {status ? (
+                  <Text style={{ color: '#ffffff', fontWeight: '700' }}>
+                    판매중
+                  </Text>
+                ) : (
+                  <Text style={{ color: '#ffffff', fontWeight: '700' }}>
+                    판매완료
+                  </Text>
+                )}
               </Pressable>
+            </View>
           </View>
         </View>
-      </View>
       )}
       <ActionSheetModal
         // data={productId}
