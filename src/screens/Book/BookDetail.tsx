@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { StyleSheet, View, Text, Pressable, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ChevronLeft from 'src/assets/svgs/chevron-left.svg';
@@ -24,62 +24,69 @@ const BookDetail: React.FC<PropsType> = ({ navigation, route }) => {
   const [status, setStatus] = useState(true);
   const [isWished, setIsWished] = useState({});
   const [wishes, setWishes] = useState(0);
-  const { getProduct, wishClick, changeToSale, changeToSold, deleteProduct } =
-    useBookAPI();
+  const { getProduct, wishClick, changeToSale, changeToSold } = useBookAPI();
   const { getUser } = useUserAPI();
-  const initialGetProduct = useCallback(async () => {
-    const response = await getProduct(productId);
-    if (response.status === 200) {
-      setProduct(response.data);
-      response.data.status === 'SALE' ? setStatus(true) : setStatus(false);
-      setIsWished(response.data.isWished);
-      setWishes(response.data.wishes);
-    } else {
-      console.log('error :: ', response);
+  const initialGetProduct = async () => {
+    try {
+      const response = await getProduct(productId);
+      if (response.status === 200) {
+        setProduct(response.data);
+        response.data.status === 'SALE' ? setStatus(true) : setStatus(false);
+        setIsWished(response.data.isWished);
+        setWishes(response.data.wishes);
+      }
+    } catch (e) {
+      console.log('initial get product error :: ', e);
     }
-  }, []);
-  const getUserInfo = useCallback(async () => {
-    const response = await getUser();
-    if (response.status === 200) {
-      setUserInfo(response.data);
-    } else {
-      console.log('error :: ', response);
+  };
+  const getUserInfo = async () => {
+    try {
+      const response = await getUser();
+      if (response.status === 200) {
+        setUserInfo(response.data);
+      }
+    } catch (e) {
+      console.log('get user info error :: ', e);
     }
-  }, []);
-  const onChangeStatus = useCallback(async () => {
-    const response = status
-      ? await changeToSold(productId)
-      : await changeToSale(productId);
-    if (response.status === 200) {
-      setStatus(!status);
-    } else {
-      console.log('error :: ', response);
+  };
+  const onChangeStatus = async () => {
+    try {
+      const response = status
+        ? await changeToSold(productId)
+        : await changeToSale(productId);
+      if (response.status === 200) {
+        setStatus(!status);
+      }
+    } catch (e) {
+      console.log('on change status error :: ', e);
     }
+  };
+
+  useLayoutEffect(() => {
+    initialGetProduct().then();
+    getUserInfo().then();
   }, []);
 
-  useEffect(() => {
-    initialGetProduct();
-    getUserInfo();
-  }, []);
-
-  const isMine: boolean = userInfo?.id === product?.seller.id ? true : false;
+  const isMine: boolean = userInfo?.id === product?.seller.id;
   const onPressBack = () => {
     navigation.goBack();
   };
-  const onPressWish = useCallback(async () => {
-    const response = await wishClick(productId);
-    if (response.status === 200) {
-      setIsWished(response.data);
-      response.data
-        ? setWishes(wishes => wishes + 1)
-        : setWishes(wishes => wishes - 1);
-    } else {
-      console.log('error :: ', response);
+  const onPressWish = async () => {
+    try {
+      const response = await wishClick(productId);
+      if (response.status === 200) {
+        setIsWished(response.data);
+        response.data
+          ? setWishes(wishes => wishes + 1)
+          : setWishes(wishes => wishes - 1);
+      }
+    } catch (e) {
+      console.log('wish error :: ', e);
     }
-  }, []);
+  };
   const onPressBtn = () => {
     if (isMine) {
-      onChangeStatus();
+      onChangeStatus().then();
     }
   };
   const { isSelecting, onPressMore, onClose, actions } =

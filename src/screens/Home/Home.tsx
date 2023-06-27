@@ -15,15 +15,19 @@ const Home = () => {
   const { getProducts } = useBookAPI();
 
   const initialGetProducts = useCallback(async () => {
-    const response = await getProducts(pageNumber.current);
-    if (response.status === 200) {
-      pageNumber.current += 1;
-      setProducts(response.data.content);
+    try {
+      const response = await getProducts(pageNumber.current);
+      if (response.status === 200) {
+        pageNumber.current += 1;
+        setProducts(response.data.content);
+      }
+    } catch (e) {
+      console.log('initial get products error::', e);
     }
   }, [getProducts]);
 
   useEffect(() => {
-    initialGetProducts();
+    initialGetProducts().then();
   }, []);
 
   if (products.length === 0) {
