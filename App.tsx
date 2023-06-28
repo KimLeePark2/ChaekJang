@@ -22,6 +22,21 @@ const CustomTheme = {
 };
 
 const App = () => {
+  const getFcmToken = async () => {
+    const fcmToken = await messaging().getToken();
+    console.log('[FCM Token] ', fcmToken);
+  };
+  React.useEffect(() => {
+    getFcmToken().then();
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      const notification = remoteMessage?.notification;
+      if (notification) {
+        console.log(notification.title, notification.body, 'message');
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
   async function requestUserPermission() {
     const authStatus = await messaging().requestPermission();
     const enabled =
