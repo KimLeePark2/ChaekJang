@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useIsFocused } from '@react-navigation/native';
 import BookList from '@components/Book/BookList';
 import NewBookButton from '@components/Book/NewBookButton';
 import useBookAPI from '@hooks/useBookAPI';
@@ -13,6 +14,7 @@ const Home = () => {
   const pageNumber = useRef(1);
   const done = useRef(false);
   const { getProducts } = useBookAPI();
+  const isFocused = useIsFocused();
 
   const initialGetProducts = useCallback(async () => {
     try {
@@ -28,7 +30,7 @@ const Home = () => {
 
   useEffect(() => {
     initialGetProducts().then();
-  }, []);
+  }, [isFocused]);
 
   if (products.length === 0) {
     return (
